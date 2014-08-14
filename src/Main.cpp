@@ -1,5 +1,17 @@
 #include "Globals.h"
 
+// GLOBALS ////////////////////////////////////////////////
+HWND      main_window_handle = NULL; // globally track main window
+HINSTANCE hinstance_app = NULL; // globally track hinstance
+// DEFINES ////////////////////////////////////////////////
+// defines for windows 
+#define WINDOW_CLASS_NAME "2D/3D Game Engine Course; Ahmed Saleh "
+#define WINDOW_WIDTH			800 
+#define WINDOW_HEIGHT			600
+
+cGraphics g_Graphics;
+
+
 // FUNCTIONS //////////////////////////////////////////////
 LRESULT CALLBACK WindowProc(HWND hwnd,
 	UINT msg,
@@ -37,6 +49,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 int Game_Main(void *parms = NULL, int num_parms = 0)
 {
 
+	g_Graphics.Clear();
+
+	g_Graphics.Render();
+
 	// return success or failure or your own return code here
 	return(1);
 
@@ -46,6 +62,12 @@ int Game_Main(void *parms = NULL, int num_parms = 0)
 
 int Game_Init(void *parms = NULL, int num_parms = 0)
 {
+	
+ 
+	HRESULT result = g_Graphics.Initialize(main_window_handle, true);
+
+ 
+
 
 	return(1);
 } // end Game_Init

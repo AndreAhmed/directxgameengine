@@ -4,15 +4,11 @@
 #include <windows.h>   // include important windows stuff
 #include <windowsx.h> 
 
-// DEFINES ////////////////////////////////////////////////
+#include <dxgi.h>
+#include <d3dcommon.h>
+#include <d3d11_1.h>
+#include <directxcolors.h>
+#include <directxmath.h> 
 
-// defines for windows 
-#define WINDOW_CLASS_NAME "2D/3D Game Engine Course; Ahmed Saleh "
-#define WINDOW_WIDTH 800 
-#define WINDOW_HEIGHT 600
-
-
-// GLOBALS ////////////////////////////////////////////////
-HWND      main_window_handle = NULL; // globally track main window
-HINSTANCE hinstance_app = NULL; // globally track hinstance
-
+#include "Graphics.h"
+ 
