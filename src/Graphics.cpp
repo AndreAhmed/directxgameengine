@@ -139,6 +139,7 @@ HRESULT cGraphics::Initialize(HWND hwnd, bool windowed)
 	m_pImmediateContext->RSSetViewports(1, &vp);
 
 
+
 	return hr;
 }
 
@@ -156,7 +157,7 @@ void cGraphics::Clear()
 
 void cGraphics::Render()
 {
-	XMMATRIX p = XMMatrixPerspectiveFovLH(0.25f*XM_PI, (float)800 / 600, 1.0f, 1000.0f);
+ 
 
 	m_pSwapChain->Present(0, 0);
 }
@@ -349,84 +350,7 @@ HRESULT cGrid::CreateGrid(float width, float depth, UINT n, UINT m)
 	HRESULT hr = m_pGraphics->getDevice()->CreateBuffer(&ibd, nullptr, &m_pConstantBuffer);
 	if (FAILED(hr))
 		return hr;
-
-
-//// Create vertex buffer
-//VertexAttribute vertices[] =
-//{
-//	{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) },
-//	{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) },
-//	{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f) },
-//	{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) },
-//	{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f) },
-//	{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f) },
-//	{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f) },
-//	{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f) },
-//};
-//
-//D3D11_BUFFER_DESC bd;
-//ZeroMemory(&bd, sizeof(bd));
-//bd.Usage = D3D11_USAGE_DEFAULT;
-//bd.ByteWidth = sizeof(VertexAttribute)* 8;
-//bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-//bd.CPUAccessFlags = 0;
-//D3D11_SUBRESOURCE_DATA InitData;
-//ZeroMemory(&InitData, sizeof(InitData));
-//InitData.pSysMem = vertices;
-//HRESULT hr = m_pGraphics->getDevice()->CreateBuffer(&bd, &InitData, &mVB);
-//if (FAILED(hr))
-//return hr;
-//
-//// Set vertex buffer
-//UINT stride = sizeof(VertexAttribute);
-//UINT offset = 0;
-//m_pGraphics->getContext()->IASetVertexBuffers(0, 1, &mVB, &stride, &offset);
-//
-//// Create index buffer
-//WORD indices[] =
-//{
-//	3, 1, 0,
-//	2, 1, 3,
-//
-//	0, 5, 4,
-//	1, 5, 0,
-//
-//	3, 4, 7,
-//	0, 4, 3,
-//
-//	1, 6, 5,
-//	2, 6, 1,
-//
-//	2, 7, 6,
-//	3, 7, 2,
-//
-//	6, 4, 5,
-//	7, 4, 6,
-//};
-//bd.Usage = D3D11_USAGE_DEFAULT;
-//bd.ByteWidth = sizeof(WORD)* 36;        // 36 vertices needed for 12 triangles in a triangle list
-//bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-//bd.CPUAccessFlags = 0;
-//InitData.pSysMem = indices;
-//hr = m_pGraphics->getDevice()->CreateBuffer(&bd, &InitData, &mIB);
-//if (FAILED(hr))
-//return hr;
-//
-//// Set index buffer
-//m_pGraphics->getContext()->IASetIndexBuffer(mIB, DXGI_FORMAT_R16_UINT, 0);
-//
-//// Set primitive topology
-//m_pGraphics->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-//
-//// Create the constant buffer
-//bd.Usage = D3D11_USAGE_DEFAULT;
-//bd.ByteWidth = sizeof(ConstantBuffer);
-//bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-//bd.CPUAccessFlags = 0;
-//hr = m_pGraphics->getDevice()->CreateBuffer(&bd, nullptr, &m_pConstantBuffer);
-//if (FAILED(hr))
-//return hr;
-
+	 
 }
 
 void cGrid::Update()
@@ -515,4 +439,20 @@ HRESULT cGrid::CompileFX()
 cGrid::cGrid()
 {
 
+}
+
+cGrid::~cGrid()
+{
+
+}
+
+void cGrid::Release()
+{
+ 	ReleaseCOM(m_pVSBlob);
+	ReleaseCOM(m_pVertexShader);
+	ReleaseCOM(m_pPixelShader);
+	ReleaseCOM(m_InputLayout);
+	ReleaseCOM(m_pConstantBuffer);
+	ReleaseCOM(mIB);
+	ReleaseCOM(mVB);
 }
