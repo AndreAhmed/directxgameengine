@@ -169,6 +169,8 @@ int Game_Init(void *parms = NULL, int num_parms = 0)
 
 int Game_Shutdown(void *parms = NULL, int num_parms = 0)
 {
+	g_Graphics.Release();
+	g_Grid.Release();
 
 	return(1);
 

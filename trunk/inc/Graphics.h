@@ -94,12 +94,13 @@ public:
 
 public:
 	cGrid();
+	~cGrid();
 	void InitGrid(cGraphics *Graphics);
 	HRESULT CreateGrid(float width, float depth, UINT n, UINT m);
 	HRESULT CompileFX();
 	void Update();
 	void DrawGrid();
-	
+	void Release();
 	Mesh getMesh() { return m_Mesh; }
 private: 
 	cGraphics *m_pGraphics;
