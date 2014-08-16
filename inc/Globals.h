@@ -2,13 +2,22 @@
 // INCLUDES ///////////////////////////////////////////////
 
 #include <windows.h>   // include important windows stuff
-#include <windowsx.h> 
+#include <WindowsX.h>
+#include <tchar.h>
+#include <sstream>
+#include <fstream>
 
-#include <dxgi.h>
+// DirectX includes
+
 #include <d3dcommon.h>
 #include <d3d11_1.h>
 #include <directxcolors.h>
-#include <directxmath.h> 
+#include <d3dcompiler.h>
+#include <directxmath.h>
 
+// STL
+#include <vector>
+
+// Game Engine 
 #include "Graphics.h"
  
