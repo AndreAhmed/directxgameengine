@@ -19,6 +19,7 @@ public:
 	void    Release();
 	void    SetPerspective(float fov, float near, float far);
 	void	LookAt(float x, float y, float z);
+	HRESULT SetWireFrameMode(BOOL enable);
 	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
 	float	AspectRatio();
 	ID3D11Device*         getDevice();
@@ -37,6 +38,7 @@ private:
 	ID3D11RenderTargetView* m_pRenderTargetView = nullptr;
 	ID3D11Texture2D*        m_pDepthStencil = nullptr;
 	ID3D11DepthStencilView* m_pDepthStencilView = nullptr;
+	ID3D11RasterizerState*  m_pRasterizerState = nullptr;
 
 private:
 	UINT m_Width;
@@ -90,6 +92,9 @@ public:
 		DirectX::XMMATRIX mWorld;
 		DirectX::XMMATRIX mView;
 		DirectX::XMMATRIX mProjection;
+		DirectX::XMFLOAT4 vLightDir;
+		DirectX::XMFLOAT4 vLightColor;
+		DirectX::XMFLOAT4 vOutputColor;
 	};
 
 public:
@@ -116,6 +121,7 @@ private:
 	ID3DBlob* m_pVSBlob = nullptr;
 	ID3D11VertexShader*     m_pVertexShader = nullptr;
 	ID3D11PixelShader*      m_pPixelShader = nullptr;
+	ID3D11PixelShader*		m_pPixelShaderSolid = nullptr;
 	ID3D11InputLayout*		m_InputLayout = nullptr;
 	ID3D11Buffer*           m_pConstantBuffer = nullptr;
 
