@@ -30,7 +30,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Fx\Color.fx">
+    <FxCompile Include="..\bin\Fx\Color.fx">
       <Filter>FX</Filter>
     </FxCompile>
   </ItemGroup>

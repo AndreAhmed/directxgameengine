@@ -162,6 +162,7 @@ int Game_Init(void *parms = NULL, int num_parms = 0)
 	g_Grid.CreateGrid(160.0f, 160.0f, 20, 20);
 	g_Grid.CompileFX();
 
+	//HRESULT hr = g_Graphics.SetWireFrameMode(TRUE);
 	return(1);
 } // end Game_Init
 

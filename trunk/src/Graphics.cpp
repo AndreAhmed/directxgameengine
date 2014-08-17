@@ -172,6 +172,7 @@ void cGraphics::Release()
 	ReleaseCOM(m_pImmediateContext);
 	ReleaseCOM(m_pd3dDevice1);
 	ReleaseCOM(m_pd3dDevice);
+	ReleaseCOM(m_pRasterizerState);
 }
 cGraphics::cGraphics()
 {
@@ -248,6 +249,32 @@ XMMATRIX cGraphics::getProjMatrix()
 ID3D11Device* cGraphics::getDevice()
 {
 	return m_pd3dDevice;
+}
+ 
+HRESULT cGraphics::SetWireFrameMode(BOOL enable)
+{
+	HRESULT hr;
+	if (enable)
+	{
+		D3D11_RASTERIZER_DESC wfdesc;
+		ZeroMemory(&wfdesc, sizeof(D3D11_RASTERIZER_DESC));
+		wfdesc.FillMode = D3D11_FILL_WIREFRAME;
+		wfdesc.CullMode = D3D11_CULL_NONE;
+		hr  = m_pd3dDevice->CreateRasterizerState(&wfdesc, &m_pRasterizerState);
+
+		m_pImmediateContext->RSSetState(m_pRasterizerState);
+	}
+	else
+	{
+		D3D11_RASTERIZER_DESC wfdesc;
+		ZeroMemory(&wfdesc, sizeof(D3D11_RASTERIZER_DESC));
+		wfdesc.FillMode = D3D11_FILL_SOLID;
+		wfdesc.CullMode = D3D11_CULL_NONE;
+		 hr = m_pd3dDevice->CreateRasterizerState(&wfdesc, &m_pRasterizerState);
+
+		m_pImmediateContext->RSSetState(m_pRasterizerState);
+	}
+	return hr;
 }
 
 
@@ -366,16 +393,24 @@ void cGrid::InitGrid(cGraphics *Graphics)
 
 void cGrid::DrawGrid()
 {
+	XMFLOAT4 vLightDir = XMFLOAT4(-0.577f, 0.577f, -0.577f, 1.0f);
+	XMFLOAT4 vLightColor = XMFLOAT4(1.0f, 1, 1, 1.0f);
+
 	ConstantBuffer cb1;
 	cb1.mWorld = XMMatrixTranspose(m_World);
 	cb1.mView = XMMatrixTranspose(m_pGraphics->getViewMatrix());
 	cb1.mProjection = XMMatrixTranspose(m_pGraphics->getProjMatrix());
+	cb1.vLightDir = vLightDir;
+	cb1.vLightColor = vLightColor;
+
 	m_pGraphics->getContext()->UpdateSubresource(m_pConstantBuffer, 0, nullptr, &cb1, 0, 0);
 
 	m_pGraphics->getContext()->VSSetShader(m_pVertexShader, nullptr, 0);
 	m_pGraphics->getContext()->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
 	m_pGraphics->getContext()->PSSetShader(m_pPixelShader, nullptr, 0);
+	m_pGraphics->getContext()->PSSetConstantBuffers(0, 1, &m_pConstantBuffer);
 	m_pGraphics->getContext()->DrawIndexed(m_IndicesSize, 0, 0);
+	 
 
 }
 
@@ -404,7 +439,9 @@ HRESULT cGrid::CompileFX()
 	D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+
 	};
 
 	UINT numElements = ARRAYSIZE(vertexDesc);
@@ -434,6 +471,7 @@ HRESULT cGrid::CompileFX()
 	pPSBlob->Release();
 	if (FAILED(hr))
 		return hr;
+	 
 }
 
 cGrid::cGrid()
