@@ -1,9 +1,4 @@
-#include "Globals.h"
-
-
-void OnMouseDown(WPARAM btnState, int x, int y);
-void OnMouseUp(WPARAM btnState, int x, int y);
-void OnMouseMove(WPARAM btnState, int x, int y);
+#include "GameApp.h"
 
 // GLOBALS ////////////////////////////////////////////////
 HWND      main_window_handle = NULL; // globally track main window
@@ -15,13 +10,8 @@ HINSTANCE hinstance_app = NULL; // globally track hinstance
 #define WINDOW_HEIGHT			600
 
 using namespace DirectX;
-cGraphics g_Graphics;
-cGrid     g_Grid;
 
-float mPhi = 0.1f*XM_PI;
-float mTheta = 1.5f*XM_PI;
-float mRadius = 200;
-POINT mLastMousePos;
+GameApp app; 
 
 // FUNCTIONS //////////////////////////////////////////////
 LRESULT CALLBACK WindowProc(HWND hwnd,
@@ -37,27 +27,25 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 
 	case WM_MOUSEMOVE:
 	{
-						 OnMouseMove(wparam, GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
-						 break;
+	    app.OnMouseMove(wparam, GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+		break;
 	}
 	case WM_RBUTTONUP:
 	{
-						 OnMouseUp(wparam, GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
-						 break;
+		app.OnMouseUp(wparam, GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
+		break;
 	}
 	case WM_RBUTTONDOWN:
 	{
-						   OnMouseDown(wparam, GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam));
-						   break;
+		app.OnMouseDown(wparam, GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam), main_window_handle);
+		break;
 	}
 	case WM_DESTROY:
 	{
-
-					   // kill the application, this sends a WM_QUIT message 
-					   PostQuitMessage(0);
-
-					   // return success
-					   return(0);
+	// kill the application, this sends a WM_QUIT message 
+	   PostQuitMessage(0);
+    // return success
+	   return(0);
 	} break;
 
 	default:break;
@@ -70,116 +58,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 } // end WinProc
 
 ///////////////////////////////////////////////////////////
-
-
-void OnMouseDown(WPARAM btnState, int x, int y)
-{
-	mLastMousePos.x = x;
-	mLastMousePos.y = y;
-
-	SetCapture(main_window_handle);
-}
-
-void OnMouseUp(WPARAM btnState, int x, int y)
-{
-	ReleaseCapture();
-}
-
-float Clamp(float x, float low, float high)
-{
-	return x < low ? low : (x > high ? high : x);
-}
-void OnMouseMove(WPARAM btnState, int x, int y)
-{
-	if ((btnState & MK_LBUTTON) != 0)
-	{
-		// Make each pixel correspond to a quarter of a degree.
-		float dx = XMConvertToRadians(0.25f*static_cast<float>(x - mLastMousePos.x));
-		float dy = XMConvertToRadians(0.25f*static_cast<float>(y - mLastMousePos.y));
-
-		// Update angles based on input to orbit camera around box.
-		mTheta += dx;
-		mPhi += dy;
-
-		// Restrict the angle mPhi.
-		mPhi =  Clamp(mPhi, 0.1f, XM_PI - 0.1f);
-	}
-	else if ((btnState & MK_RBUTTON) != 0)
-	{
-		// Make each pixel correspond to 0.2 unit in the scene.
-		float dx = 0.2f*static_cast<float>(x - mLastMousePos.x);
-		float dy = 0.2f*static_cast<float>(y - mLastMousePos.y);
-
-		// Update the camera radius based on input.
-		mRadius += dx - dy;
-
-		// Restrict the radius.
-		mRadius =  Clamp(mRadius, 50.0f, 500.0f);
-	}
-
-	mLastMousePos.x = x;
-	mLastMousePos.y = y;
-}
-
-
-int Game_Main(void *parms = NULL, int num_parms = 0)
-{
-	static float t = 0.0f;
-	static ULONGLONG timeStart = 0;
-	ULONGLONG timeCur = GetTickCount64();
-	if (timeStart == 0)
-		timeStart = timeCur;
-	t = (timeCur - timeStart) / 1000.0f;
-
-
-	g_Graphics.Clear();
-
-	// Convert Spherical to Cartesian coordinates.
-	float x = mRadius * sinf(mPhi)*cosf(mTheta);
-	float z = mRadius * sinf(mPhi)*sinf(mTheta);
-	float y = mRadius * cosf(mPhi);
-	g_Graphics.LookAt(x, y, z);
-
-	g_Grid.DrawGrid();
-
-	g_Graphics.Render();
-
-	// return success or failure or your own return code here
-	return(1);
-
-} // end Game_Main
-
-////////////////////////////////////////////////////////////
-
-int Game_Init(void *parms = NULL, int num_parms = 0)
-{
-	HRESULT result = g_Graphics.Initialize(main_window_handle, true);
-	g_Graphics.LookAt(0, 0, -5.0f);
-	g_Graphics.SetPerspective(0.25f*DirectX::XM_PI, 0.01f, 100.0f);
-	
-
-	g_Grid.InitGrid(&g_Graphics);
-	g_Grid.CreateGrid(160.0f, 160.0f, 20, 20);
-	g_Grid.CompileFX();
-
-	//HRESULT hr = g_Graphics.SetWireFrameMode(TRUE);
-	return(1);
-} // end Game_Init
-
-/////////////////////////////////////////////////////////////
-
-int Game_Shutdown(void *parms = NULL, int num_parms = 0)
-{
-	g_Graphics.Release();
-	g_Grid.Release();
-
-	return(1);
-
-} // end Game_Shutdown
-
-
-
-
+ 
+ 
 // WINMAIN ////////////////////////////////////////////////
 int WINAPI WinMain(HINSTANCE hinstance,
 	HINSTANCE hprevinstance,
@@ -235,7 +115,7 @@ int WINAPI WinMain(HINSTANCE hinstance,
 	UpdateWindow(main_window_handle);
 
 	// initialize game here
-	Game_Init();
+	app.Game_Init(main_window_handle);
 
 	// enter main event loop
 	while (TRUE)
@@ -255,12 +135,13 @@ int WINAPI WinMain(HINSTANCE hinstance,
 		} // end if
 
 		// main game processing goes here
-		Game_Main();
-
+		app.Game_Update();
+		app.Game_Render();
+	
 	} // end while
 
 	// closedown game here
-	Game_Shutdown();
+	app.Game_CleanUp();
 
 	// return to Windows like this
 	return(msg.wParam);

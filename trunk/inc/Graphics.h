@@ -5,8 +5,6 @@
  
 #define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
  
-
-
 class  cGraphics 
 {
 public:
@@ -126,3 +124,6 @@ private:
 	ID3D11Buffer*           m_pConstantBuffer = nullptr;
 
 };
+
+
+ 
