@@ -159,34 +159,7 @@ HRESULT cGraphics::Initialize(HWND hwnd, bool windowed)
 		return false;
 	}
 	m_pImmediateContext->OMSetDepthStencilState(m_pDepthStencilState, 1);
-
-	D3D11_DEPTH_STENCIL_DESC depthDisabledStencilDesc;
-	// Clear the second depth stencil state before setting the parameters.
-	ZeroMemory(&depthDisabledStencilDesc, sizeof(depthDisabledStencilDesc));
-
-	// Now create a second depth stencil state which turns off the Z buffer for 2D rendering.  The only difference is 
-	// that DepthEnable is set to false, all other parameters are the same as the other depth stencil state.
-	depthDisabledStencilDesc.DepthEnable = false;
-	depthDisabledStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	depthDisabledStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
-	depthDisabledStencilDesc.StencilEnable = true;
-	depthDisabledStencilDesc.StencilReadMask = 0xFF;
-	depthDisabledStencilDesc.StencilWriteMask = 0xFF;
-	depthDisabledStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-	depthDisabledStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-	depthDisabledStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
-	depthDisabledStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	depthDisabledStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-	// Create the state using the device.
-	hr = m_pd3dDevice->CreateDepthStencilState(&depthDisabledStencilDesc, &m_pDepthDisabledStencilState);
-	if (FAILED(hr))
-	{
-		return false;
-	}
-
+ 
 	m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
  
 	// Setup the viewport
@@ -204,18 +177,7 @@ HRESULT cGraphics::Initialize(HWND hwnd, bool windowed)
 	return hr;
 }
 
-void cGraphics::TurnZBufferOn()
-{
-	m_pImmediateContext->OMSetDepthStencilState(m_pDepthStencilState, 1);
-	return;
-}
-
-
-void cGraphics::TurnZBufferOff()
-{
-	m_pImmediateContext->OMSetDepthStencilState(m_pDepthDisabledStencilState, 1);
-	return;
-}
+ 
 void cGraphics::Clear()
 {
 	// Clear the back buffer
@@ -459,13 +421,14 @@ void cGrid::DrawGrid()
 	XMFLOAT4 vLightDir = XMFLOAT4(-0.577f, 0.577f, -0.577f, 1.0f);
 	XMFLOAT4 vLightColor = XMFLOAT4(1.0f, 1, 1, 1.0f);
 
+	m_pGraphics->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// Set the input layout
+	m_pGraphics->getContext()->IASetInputLayout(m_InputLayout);
+
 	UINT stride = sizeof(MeshVertex);
 	UINT offset = 0;
 	m_pGraphics->getContext()->IASetVertexBuffers(0, 1, &mVB, &stride, &offset);
-	m_pGraphics->getContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pGraphics->getContext()->IASetIndexBuffer(mIB, DXGI_FORMAT_R32_UINT, 0);
-	// Set the input layout
-	m_pGraphics->getContext()->IASetInputLayout(m_InputLayout);
 
 	ConstantBuffer cb1;
 	cb1.mWorld = XMMatrixTranspose(m_World);
@@ -488,7 +451,7 @@ void cGrid::DrawGrid()
 
 HRESULT cGrid::CompileFX()
 {
-
+	
 	// Compile the vertex shader
 	ID3DBlob* pVSBlob = nullptr;
 	HRESULT hr = m_pGraphics->CompileShaderFromFile(L"FX/Color.fx", "VS", "vs_4_0", &pVSBlob);
@@ -535,7 +498,7 @@ HRESULT cGrid::CompileFX()
 			L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK);
 		return hr;
 	}
-
+ 
 	// Create the pixel shader
 	hr = m_pGraphics->getDevice()->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPixelShader);
 	pPSBlob->Release();
