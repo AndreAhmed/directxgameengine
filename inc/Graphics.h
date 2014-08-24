@@ -2,9 +2,7 @@
 
 #include "Globals.h"
 
- 
-#define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
- 
+
 class  cGraphics 
 {
 public:
@@ -17,6 +15,8 @@ public:
 	void    Release();
 	void    SetPerspective(float fov, float near, float far);
 	void	LookAt(float x, float y, float z);
+	void	TurnZBufferOn();
+	void	TurnZBufferOff();
 	HRESULT SetWireFrameMode(BOOL enable);
 	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
 	float	AspectRatio();
@@ -36,6 +36,8 @@ private:
 	ID3D11RenderTargetView* m_pRenderTargetView = nullptr;
 	ID3D11Texture2D*        m_pDepthStencil = nullptr;
 	ID3D11DepthStencilView* m_pDepthStencilView = nullptr;
+	ID3D11DepthStencilState* m_pDepthStencilState = nullptr;
+	ID3D11DepthStencilState* m_pDepthDisabledStencilState = nullptr;
 	ID3D11RasterizerState*  m_pRasterizerState = nullptr;
 
 private:

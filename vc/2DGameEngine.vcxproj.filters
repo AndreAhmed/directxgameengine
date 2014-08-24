@@ -5,12 +5,14 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="FX">
       <UniqueIdentifier>{25ee2a3c-b28a-4d54-8689-8e15f1ffe750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{030dca42-2c6a-42d8-8f4c-f02d758ec541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Common">
+      <UniqueIdentifier>{1764169c-e75a-4ef9-ac2e-e0fee61af4ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -23,21 +25,92 @@
     <ClCompile Include="..\src\GameApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\inc\Graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\GameApp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="..\src\DrawableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AnimatedSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RenderStateHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\bin\Fx\Color.fx">
       <Filter>FX</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\DrawableObject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\GameApp.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Globals.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Graphics.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\Audio.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\CommonStates.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\DDSTextureLoader.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\DirectXHelpers.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\Effects.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\GeometricPrimitive.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\Model.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\PrimitiveBatch.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\ScreenGrab.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\SimpleMath.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\SpriteBatch.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\SpriteFont.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\VertexTypes.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\WICTextureLoader.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Common\XboxDDSTextureLoader.h">
+      <Filter>Headers\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\AnimatedSprite.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RTTI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RenderStateHelper.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\inc\Common\SimpleMath.inl">
+      <Filter>Headers\Common</Filter>
+    </None>
   </ItemGroup>
 </Project>

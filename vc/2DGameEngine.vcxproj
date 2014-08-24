@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\AnimatedSprite.cpp" />
     <ClCompile Include="..\src\GameApp.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
@@ -20,16 +21,40 @@
     <ClCompile Include="..\src\Main.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\inc\GameApp.h" />
-    <ClInclude Include="..\inc\Globals.h" />
-    <ClInclude Include="..\inc\Graphics.h" />
+    <ClCompile Include="..\src\DrawableObject.cpp" />
+    <ClCompile Include="..\src\RenderStateHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\bin\Fx\Color.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\AnimatedSprite.h" />
+    <ClInclude Include="..\inc\Common\Audio.h" />
+    <ClInclude Include="..\inc\Common\CommonStates.h" />
+    <ClInclude Include="..\inc\Common\DDSTextureLoader.h" />
+    <ClInclude Include="..\inc\Common\DirectXHelpers.h" />
+    <ClInclude Include="..\inc\Common\Effects.h" />
+    <ClInclude Include="..\inc\Common\GeometricPrimitive.h" />
+    <ClInclude Include="..\inc\Common\Model.h" />
+    <ClInclude Include="..\inc\Common\PrimitiveBatch.h" />
+    <ClInclude Include="..\inc\Common\ScreenGrab.h" />
+    <ClInclude Include="..\inc\Common\SimpleMath.h" />
+    <ClInclude Include="..\inc\Common\SpriteBatch.h" />
+    <ClInclude Include="..\inc\Common\SpriteFont.h" />
+    <ClInclude Include="..\inc\Common\VertexTypes.h" />
+    <ClInclude Include="..\inc\Common\WICTextureLoader.h" />
+    <ClInclude Include="..\inc\Common\XboxDDSTextureLoader.h" />
+    <ClInclude Include="..\inc\DrawableObject.h" />
+    <ClInclude Include="..\inc\GameApp.h" />
+    <ClInclude Include="..\inc\Globals.h" />
+    <ClInclude Include="..\inc\Graphics.h" />
+    <ClInclude Include="..\inc\RenderStateHelper.h" />
+    <ClInclude Include="..\inc\RTTI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\inc\Common\SimpleMath.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C49A0A0E-3978-4E6D-811D-25B219024134}</ProjectGuid>
@@ -61,7 +86,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\bin</OutDir>
-    <IncludePath>..\inc;$(IncludePath)</IncludePath>
+    <IncludePath>..\inc\Common;..\inc;$(IncludePath)</IncludePath>
     <LibraryPath>..\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
@@ -74,7 +99,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxguid.lib;winmm.lib;xinput.lib;DirectXTKd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderType>Effect</ShaderType>
