@@ -1,4 +1,10 @@
 #pragma once
+
+
+#define ReleaseCOM(x) { if(x){ x->Release(); x = 0; } }
+#define DeleteObjectPointer(object) if((object) != NULL) { delete object; object = NULL; }
+#define DeleteObjects(objects) if((objects) != NULL) { delete[] objects; objects = NULL; }
+
 // INCLUDES ///////////////////////////////////////////////
 
 #include <windows.h>   // include important windows stuff
@@ -17,3 +23,4 @@
 
 // STL
 #include <vector>
+#include <memory>
