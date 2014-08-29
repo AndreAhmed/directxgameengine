@@ -66,19 +66,24 @@ void GameApp::OnMouseMove(WPARAM btnState, int x, int y)
 void GameApp::Game_Render()
 {
 
+	static float t = 0.0f;
+	static ULONGLONG timeStart = 0;
+	ULONGLONG timeCur = GetTickCount64();
+	if (timeStart == 0)
+		timeStart = timeCur;
+	t = (timeCur - timeStart) / 1000.0f;
+
 	m_Graphics.Clear();
 
 	
 	m_Grid.DrawGrid();
 	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
 	mRenderStateHelper->SaveAll();
-	m_Sprite->Begin();
-	XMFLOAT2 pos(240, 400);
- 	m_Sprite->Draw(m_SpriteTexture, pos);
-	m_Sprite->End();
+	 
+	m_Animated.DrawFrame(t);
 
 	m_Sprite->Begin();
-	m_SpriteFont->DrawString(m_Sprite.get(), L"Mixing 2D/3D Graphics Demo", XMFLOAT2(10, 10));
+	m_SpriteFont->DrawString(m_Sprite.get(), L"Mixing 2D/3D Graphics Demo", XMFLOAT2(10, 10), Colors::White);
 	m_Sprite->End();
 	 
 	mRenderStateHelper->RestoreAll();
@@ -89,13 +94,6 @@ void GameApp::Game_Render()
 void GameApp::Game_Update()
 {
 
-	static float t = 0.0f;
-	static ULONGLONG timeStart = 0;
-	ULONGLONG timeCur = GetTickCount64();
-	if (timeStart == 0)
-		timeStart = timeCur;
-	t = (timeCur - timeStart) / 1000.0f;
- 
 	// Convert Spherical to Cartesian coordinates.
 	float x = mRadius * sinf(mPhi)*cosf(mTheta);
 	float z = mRadius * sinf(mPhi)*sinf(mTheta);
@@ -123,9 +121,10 @@ void GameApp::Game_Init(HWND handle)
 
     //HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
 
-	result = CreateWICTextureFromFile(m_Graphics.getDevice(), m_Graphics.getContext(), L"Bird.png", NULL, &m_SpriteTexture, NULL);
+	result = CreateDDSTextureFromFile(m_Graphics.getDevice(), m_Graphics.getContext(), L"SmileyWalk.png", NULL, &m_SpriteTexture, NULL);
 	m_Sprite = std::shared_ptr<SpriteBatch>(new SpriteBatch(m_Graphics.getContext()));
 	m_SpriteFont = std::shared_ptr<SpriteFont>(new SpriteFont(m_Graphics.getDevice(), L"Arial_14_Regular.spritefont"));
 
 	mRenderStateHelper = new RenderStateHelper(&m_Graphics);
+	m_Animated.InitAnimation(&m_Graphics, "logo_trans.png", 2, 2);
 }

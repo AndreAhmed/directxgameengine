@@ -154,6 +154,7 @@ HRESULT cGraphics::Initialize(HWND hwnd, bool windowed)
 
 	// Create the depth stencil state.
 	hr = m_pd3dDevice->CreateDepthStencilState(&depthStencilDesc, &m_pDepthStencilState);
+	 
 	if (FAILED(hr))
 	{
 		return false;
