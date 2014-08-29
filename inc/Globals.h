@@ -13,6 +13,7 @@
 #include <sstream>
 #include <fstream>
 
+#include <wrl.h>
 // DirectX includes
 
 #include <d3dcommon.h>

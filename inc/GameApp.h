@@ -1,7 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include "SpriteBatch.h"
-#include "WICTextureLoader.h"
+#include "DDSTextureLoader.h"
 #include "AnimatedSprite.h"
 #include "RenderStateHelper.h"
 #include "SpriteFont.h"
@@ -34,5 +34,6 @@ public:
 	float mTheta = 1.5f*DirectX::XM_PI;
 	float mRadius = 200;
 	POINT mLastMousePos;
-
+	cAnimatedSprite m_Animated;
+	
 };
