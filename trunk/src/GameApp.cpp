@@ -1,6 +1,6 @@
 #include "GameApp.h"
 
-
+using namespace std;
 using namespace DirectX;
 
 GameApp::GameApp()
@@ -62,49 +62,63 @@ void GameApp::OnMouseMove(WPARAM btnState, int x, int y)
 	mLastMousePos.y = y;
 }
 
-
+// Render Update
 void GameApp::Game_Render()
 {
-
-	static float t = 0.0f;
-	static ULONGLONG timeStart = 0;
-	ULONGLONG timeCur = GetTickCount64();
-	if (timeStart == 0)
-		timeStart = timeCur;
-	t = (timeCur - timeStart) / 1000.0f;
-
 	m_Graphics.Clear();
 
-	
 	m_Grid.DrawGrid();
-	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
-	mRenderStateHelper->SaveAll();
-	 
-	m_Animated.DrawFrame(t);
 
-	m_Sprite->Begin();
-	m_SpriteFont->DrawString(m_Sprite.get(), L"Mixing 2D/3D Graphics Demo", XMFLOAT2(10, 10), Colors::White);
-	m_Sprite->End();
-	 
-	mRenderStateHelper->RestoreAll();
+	Graphics_2D();
 
 	m_Graphics.Render();
 }
 
+// all your 2D drawings call are called here
+void GameApp::Graphics_2D()
+{
+	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
+	m_RenderStateHelper->SaveAll();
+	m_Animated.DrawAnimation();
+
+	int fps = m_Timer.GetFps();
+	m_Graphics.getSpriteBatch()->Begin();
+
+	ostringstream ss;
+	ss << fps;
+	string fpsString = "FPS " + ss.str();
+	wstring widestrFPS = wstring(fpsString.begin(), fpsString.end());
+
+	m_SpriteFont->DrawString(m_Graphics.getSpriteBatch().get(), L"Mixing 2D/3D Graphics Demo", XMFLOAT2(10, 10), Colors::White);
+	m_SpriteFont->DrawString(m_Graphics.getSpriteBatch().get(), widestrFPS.c_str(), XMFLOAT2(10, 30), Colors::Red);
+	m_Graphics.getSpriteBatch()->End();
+
+	m_RenderStateHelper->RestoreAll();
+}
+
+// Game Loop Update
 void GameApp::Game_Update()
 {
+	m_Timer.UpdateFPS();
+	m_Timer.UpdateTimer();
+	float dt = m_Timer.GetTime();
 
 	// Convert Spherical to Cartesian coordinates.
 	float x = mRadius * sinf(mPhi)*cosf(mTheta);
 	float z = mRadius * sinf(mPhi)*sinf(mTheta);
 	float y = mRadius * cosf(mPhi);
 	m_Graphics.LookAt(x, y, z);
+
+	m_Animated.SetPos(XMFLOAT2(240, 250));
+	m_Animated.Update(dt);
 }
 
 void GameApp::Game_CleanUp()
 {
 	m_Graphics.Release();
 	m_Grid.Release(); 
+	m_Animated.Release();
+	
 }
 
 void GameApp::Game_Init(HWND handle)
@@ -113,18 +127,19 @@ void GameApp::Game_Init(HWND handle)
 	HRESULT result = m_Graphics.Initialize(handle, true);
 	m_Graphics.LookAt(0, 0, -5.0f);
 	m_Graphics.SetPerspective(0.25f*DirectX::XM_PI, 0.01f, 100.0f);
+	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
 
+	m_Graphics.CreateSpriteBatch();
 
 	m_Grid.InitGrid(&m_Graphics);
 	m_Grid.CreateGrid(160.0f, 160.0f, 20, 20);
 	m_Grid.CompileFX();
-
-    //HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
-
-	result = CreateDDSTextureFromFile(m_Graphics.getDevice(), m_Graphics.getContext(), L"SmileyWalk.png", NULL, &m_SpriteTexture, NULL);
-	m_Sprite = std::shared_ptr<SpriteBatch>(new SpriteBatch(m_Graphics.getContext()));
+ 
 	m_SpriteFont = std::shared_ptr<SpriteFont>(new SpriteFont(m_Graphics.getDevice(), L"Arial_14_Regular.spritefont"));
 
-	mRenderStateHelper = new RenderStateHelper(&m_Graphics);
-	m_Animated.InitAnimation(&m_Graphics, "logo_trans.png", 2, 2);
+	m_RenderStateHelper = new RenderStateHelper(&m_Graphics);
+
+	m_Animated.InitAnimation(&m_Graphics, "wraithb.png", 8, 4, 0.9f);
+	
+	m_Timer.Initialize();
 }

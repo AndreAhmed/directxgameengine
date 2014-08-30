@@ -34,6 +34,9 @@
     <ClCompile Include="..\src\RenderStateHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\bin\Fx\Color.fx">
@@ -105,6 +108,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\RenderStateHelper.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Timer.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

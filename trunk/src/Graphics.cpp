@@ -311,9 +311,21 @@ HRESULT cGraphics::SetWireFrameMode(BOOL enable)
 	return hr;
 }
 
+void cGraphics::CreateSpriteBatch()
+{
+	m_SpriteBatch = std::shared_ptr<SpriteBatch>(new SpriteBatch(m_pImmediateContext));
+
+}
+
+std::shared_ptr<DirectX::SpriteBatch> cGraphics::getSpriteBatch()
+{
+	return m_SpriteBatch;
+}
+
 
 HRESULT cGrid::CreateGrid(float width, float depth, UINT n, UINT m)
 {
+	HRESULT hr;
 	int vertexCount = m*n;
 	UINT faceCount = (m - 1)*(n - 1) * 2; // each quad consists of two triangles
 
@@ -399,11 +411,11 @@ HRESULT cGrid::CreateGrid(float width, float depth, UINT n, UINT m)
 	ibd.ByteWidth = sizeof(ConstantBuffer);
 	ibd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	ibd.CPUAccessFlags = 0;
-	HRESULT hr = m_pGraphics->getDevice()->CreateBuffer(&ibd, nullptr, &m_pConstantBuffer);
+	hr = m_pGraphics->getDevice()->CreateBuffer(&ibd, nullptr, &m_pConstantBuffer);
 	if (FAILED(hr))
 		return hr;
 
-	 
+	return hr;
 }
 
 void cGrid::Update()
@@ -452,10 +464,11 @@ void cGrid::DrawGrid()
 
 HRESULT cGrid::CompileFX()
 {
+	HRESULT hr;
 	
 	// Compile the vertex shader
 	ID3DBlob* pVSBlob = nullptr;
-	HRESULT hr = m_pGraphics->CompileShaderFromFile(L"FX/Color.fx", "VS", "vs_4_0", &pVSBlob);
+	 hr = m_pGraphics->CompileShaderFromFile(L"FX/Color.fx", "VS", "vs_4_0", &pVSBlob);
 	if (FAILED(hr))
 	{
 		MessageBox(nullptr,
@@ -505,6 +518,8 @@ HRESULT cGrid::CompileFX()
 	pPSBlob->Release();
 	if (FAILED(hr))
 		return hr;
+
+	return hr;
 	 
 }
 

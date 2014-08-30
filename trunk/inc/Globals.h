@@ -9,6 +9,7 @@
 
 #include <windows.h>   // include important windows stuff
 #include <WindowsX.h>
+#include <mmsystem.h>
 #include <tchar.h>
 #include <sstream>
 #include <fstream>

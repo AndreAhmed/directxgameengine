@@ -23,6 +23,7 @@
     </ClCompile>
     <ClCompile Include="..\src\DrawableObject.cpp" />
     <ClCompile Include="..\src\RenderStateHelper.cpp" />
+    <ClCompile Include="..\src\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\bin\Fx\Color.fx">
@@ -52,6 +53,7 @@
     <ClInclude Include="..\inc\Graphics.h" />
     <ClInclude Include="..\inc\RenderStateHelper.h" />
     <ClInclude Include="..\inc\RTTI.h" />
+    <ClInclude Include="..\inc\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\inc\Common\SimpleMath.inl" />

@@ -1,10 +1,10 @@
 #pragma once
 #include "Graphics.h"
 #include "SpriteBatch.h"
-#include "DDSTextureLoader.h"
 #include "AnimatedSprite.h"
 #include "RenderStateHelper.h"
 #include "SpriteFont.h"
+#include "Timer.h"
 
 class GameApp
 {
@@ -15,20 +15,18 @@ public:
 	void Game_Render();
 	void Game_Update();
 	void Game_CleanUp();
-
+	void Graphics_2D();
 	void OnMouseDown(WPARAM btnState, int x, int y, HWND handle);
 	void OnMouseUp(WPARAM btnState, int x, int y);
 	void OnMouseMove(WPARAM btnState, int x, int y);
 	float Clamp(float x, float low, float high);
 public:
 	cGraphics m_Graphics;
-	cGrid    m_Grid;
-
-	std::shared_ptr<DirectX::SpriteBatch> m_Sprite;
+	cGrid     m_Grid;
+	cTimer	  m_Timer;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
 
-	ID3D11ShaderResourceView* m_SpriteTexture;
-	RenderStateHelper* mRenderStateHelper;
+	RenderStateHelper* m_RenderStateHelper;
 
 	float mPhi = 0.1f*DirectX::XM_PI;
 	float mTheta = 1.5f*DirectX::XM_PI;

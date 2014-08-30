@@ -7,7 +7,7 @@ class RenderStateHelper
 public:
 	RenderStateHelper(cGraphics *graphics);
 	~RenderStateHelper();
-
+	
 	static void ResetAll(ID3D11DeviceContext* deviceContext);
 
 	ID3D11RasterizerState* RasterizerState();
@@ -25,7 +25,7 @@ public:
 
 	void SaveAll();
 	void RestoreAll() const;
-
+	void Release();
 private:
 	RenderStateHelper(const RenderStateHelper& rhs);
 	RenderStateHelper& operator=(const RenderStateHelper& rhs);
