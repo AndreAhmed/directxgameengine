@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Globals.h"
+#include "SpriteBatch.h"
 
 
 class  cGraphics 
@@ -15,8 +16,8 @@ public:
 	void    Release();
 	void    SetPerspective(float fov, float near, float far);
 	void	LookAt(float x, float y, float z);
-	void	TurnZBufferOn();
-	void	TurnZBufferOff();
+	void    CreateSpriteBatch();
+
 	HRESULT SetWireFrameMode(BOOL enable);
 	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
 	float	AspectRatio();
@@ -24,7 +25,7 @@ public:
 	ID3D11DeviceContext * getContext();
 	DirectX::XMMATRIX	  getViewMatrix();
 	DirectX::XMMATRIX     getProjMatrix();
- 
+	std::shared_ptr<DirectX::SpriteBatch> getSpriteBatch();
 private:
 	D3D_DRIVER_TYPE         m_driverType = D3D_DRIVER_TYPE_NULL;
 	D3D_FEATURE_LEVEL       m_featureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -42,6 +43,7 @@ private:
 private:
 	UINT m_Width;
 	UINT m_Height;
+	std::shared_ptr<DirectX::SpriteBatch> m_SpriteBatch; // shared sprite batch
 private:
 	
 	DirectX::XMMATRIX m_View;

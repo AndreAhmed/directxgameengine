@@ -1,25 +1,30 @@
 #include "AnimatedSprite.h"
 
-
-
 using namespace DirectX;
 using namespace std;
 using namespace Microsoft::WRL;
+
 cAnimatedSprite::cAnimatedSprite()
 {
 
 }
-void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &fileName, int frameNumbersX, int frameNumbersY)
+void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &fileName, int frameNumbersX, int frameNumbersY, float speed)
 {
 	m_Graphics = graphics;
 	m_FrameNumbersX = frameNumbersX;
 	m_FrameNumbersY = frameNumbersY;
+	m_CurrFrameX = 0;
+	m_CurrFrameY = 0;
+	m_TotalElapsed = 0;
+	m_Speed = speed;
+	m_isPaused = false;
+	m_Pos = XMFLOAT2(0, 0);
+
 	std::wstring widestr = std::wstring(fileName.begin(), fileName.end());
 
 	HRESULT hr = CreateWICTextureFromFile(m_Graphics->getDevice(), m_Graphics->getContext(), widestr.c_str(), NULL, &m_SpriteTexture, NULL);
 	if (FAILED(hr))
 		return;
-	m_SpriteBatch = std::shared_ptr<SpriteBatch>(new SpriteBatch(m_Graphics->getContext()));
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> resource;
 	m_SpriteTexture->GetResource(resource.GetAddressOf());
@@ -35,51 +40,68 @@ void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &file
 	tex2d->GetDesc(&desc);
 	m_TextureWidth = int(desc.Width);
 	m_TextureHeight = int(desc.Height);
-	m_CurrFrame = 0;
-	m_TotalElapsed = 0;
+	m_FrameWidth = m_TextureWidth / m_FrameNumbersX;
+	m_FrameHeight = m_TextureHeight / m_FrameNumbersY;
 
 }
 
 void cAnimatedSprite::DrawAnimation()
 {
-	m_SpriteBatch->Begin();
-	XMFLOAT2 pos(50, 200);
-	RECT rect;
-	rect.top = 0;
-	rect.right = 177;
-	rect.left = 0;
-	rect.bottom = 177;
-	m_SpriteBatch->Draw(m_SpriteTexture, pos, &rect);
-	m_SpriteBatch->End();
-}
-
-void cAnimatedSprite::DrawFrame(float t)
-{
-	int frameWidth = m_TextureWidth / 8;
-	int frameHeight = m_TextureHeight / 3;
-	m_TotalElapsed += 0.001f;
-
-	if (m_TotalElapsed > 1 / (float)2)
-	{
-		m_CurrFrame++;
-		m_CurrFrame = m_CurrFrame % 8;
-		m_TotalElapsed -= 1 / (float)2;
-	}
+	if (m_isPaused)
+		return;
 	RECT sourceRect;
-	sourceRect.left = frameWidth * m_CurrFrame;
-	sourceRect.top = 0;
-	sourceRect.right = sourceRect.left + frameWidth;
-	sourceRect.bottom = m_TextureHeight;
-	m_SpriteBatch->Begin();
-	XMFLOAT2 pos(50, 200);
+	sourceRect.left = m_CurrFrameX*m_FrameWidth;
+	sourceRect.top = m_CurrFrameY*m_FrameHeight;
+	sourceRect.right = sourceRect.left + m_FrameWidth;
+	sourceRect.bottom = sourceRect.top + m_FrameHeight;
 
-	m_SpriteBatch->Draw(m_SpriteTexture, pos, &sourceRect, Colors::White);
-	m_SpriteBatch->End();
-	 
+	m_Graphics->getSpriteBatch()->Begin();
+	m_Graphics->getSpriteBatch()->Draw(m_SpriteTexture, m_Pos, &sourceRect, Colors::White);
+	m_Graphics->getSpriteBatch()->End();
 }
-
+ 
 void cAnimatedSprite::Update(float deltaT)
 {
+	if (m_isPaused)
+		return;
+	
+	m_TotalElapsed += deltaT;
+	if (m_TotalElapsed > m_Speed)
+	{
+		m_TotalElapsed -= m_Speed;
+		m_CurrFrameX++;
 
+		if (m_CurrFrameX >= m_FrameNumbersX)
+		{
+			m_CurrFrameX = 0;
+			m_CurrFrameY++;
+
+			if (m_CurrFrameY >= m_FrameNumbersY)
+			{
+				m_CurrFrameY = 0;
+			}
+		}
+	}
+
+}
+
+void cAnimatedSprite::Release()
+{
+	ReleaseCOM(m_SpriteTexture);
+}
+
+void cAnimatedSprite::SetPos(XMFLOAT2 &pos)
+{
+	m_Pos = pos;
+}
+
+void cAnimatedSprite::Resume()
+{
+	m_isPaused = false;
+}
+
+void cAnimatedSprite::Pause()
+{
+	m_isPaused = true;
 }
 

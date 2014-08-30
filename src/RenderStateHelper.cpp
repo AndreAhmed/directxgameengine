@@ -8,11 +8,16 @@
 
     RenderStateHelper::~RenderStateHelper()
     {
+	
+    }
+
+	void RenderStateHelper::Release()
+	{
 		ReleaseCOM(m_RasterizerState);
 		ReleaseCOM(m_BlendState);
 		ReleaseCOM(m_DepthStencilState);
-        DeleteObjects(m_BlendFactor);
-    }
+		DeleteObjects(m_BlendFactor);
+	}
 
     void RenderStateHelper::ResetAll(ID3D11DeviceContext* deviceContext)
     {
