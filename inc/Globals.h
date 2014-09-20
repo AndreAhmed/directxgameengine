@@ -26,3 +26,5 @@
 // STL
 #include <vector>
 #include <memory>
+
+#include "EngineException.h"

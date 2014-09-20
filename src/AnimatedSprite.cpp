@@ -24,7 +24,10 @@ void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &file
 
 	HRESULT hr = CreateWICTextureFromFile(m_Graphics->getDevice(), m_Graphics->getContext(), widestr.c_str(), NULL, &m_SpriteTexture, NULL);
 	if (FAILED(hr))
-		return;
+	{
+		throw(cGameException(gameErrorNS::FATAL_ERROR, "Failed to initialize Sprite Texture."));
+	}
+		
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> resource;
 	m_SpriteTexture->GetResource(resource.GetAddressOf());
@@ -32,7 +35,7 @@ void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &file
 	resource->GetType(&dim);
 
 	if (dim != D3D11_RESOURCE_DIMENSION_TEXTURE2D)
-		throw std::exception("Expects a Texture2D");
+		throw(cGameException(gameErrorNS::FATAL_ERROR, "Expects Texture2D."));
 
 	ComPtr<ID3D11Texture2D> tex2d;
 	resource.As(&tex2d);
@@ -98,6 +101,9 @@ void cAnimatedSprite::SetPos(XMFLOAT2 &pos)
 void cAnimatedSprite::Resume()
 {
 	m_isPaused = false;
+	m_TotalElapsed = 0.f;
+	m_CurrFrameX = 0; 
+	m_CurrFrameY = 0;
 }
 
 void cAnimatedSprite::Pause()

@@ -12,12 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AnimatedSprite.cpp" />
+    <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\GameApp.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
     <ClCompile Include="..\src\Graphics.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
+    <ClCompile Include="..\src\Grid.cpp" />
     <ClCompile Include="..\src\Main.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
@@ -32,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\AnimatedSprite.h" />
+    <ClInclude Include="..\inc\Camera.h" />
     <ClInclude Include="..\inc\Common\Audio.h" />
     <ClInclude Include="..\inc\Common\CommonStates.h" />
     <ClInclude Include="..\inc\Common\DDSTextureLoader.h" />
@@ -48,14 +51,17 @@
     <ClInclude Include="..\inc\Common\WICTextureLoader.h" />
     <ClInclude Include="..\inc\Common\XboxDDSTextureLoader.h" />
     <ClInclude Include="..\inc\DrawableObject.h" />
+    <ClInclude Include="..\inc\EngineException.h" />
     <ClInclude Include="..\inc\GameApp.h" />
     <ClInclude Include="..\inc\Globals.h" />
     <ClInclude Include="..\inc\Graphics.h" />
+    <ClInclude Include="..\inc\Grid.h" />
     <ClInclude Include="..\inc\RenderStateHelper.h" />
     <ClInclude Include="..\inc\RTTI.h" />
     <ClInclude Include="..\inc\Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\bin\Fx\Shader.dgsl" />
     <None Include="..\inc\Common\SimpleMath.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

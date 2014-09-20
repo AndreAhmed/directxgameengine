@@ -107,8 +107,9 @@ void GameApp::Game_Update()
 	float x = mRadius * sinf(mPhi)*cosf(mTheta);
 	float z = mRadius * sinf(mPhi)*sinf(mTheta);
 	float y = mRadius * cosf(mPhi);
-	m_Graphics.LookAt(x, y, z);
+	m_Camera.SetPosition(XMFLOAT3(x, y, z));
 
+	m_Camera.Update(dt);
 	m_Animated.SetPos(XMFLOAT2(240, 250));
 	m_Animated.Update(dt);
 }
@@ -124,9 +125,10 @@ void GameApp::Game_CleanUp()
 void GameApp::Game_Init(HWND handle)
 {
 
-	HRESULT result = m_Graphics.Initialize(handle, true);
-	m_Graphics.LookAt(0, 0, -5.0f);
-	m_Graphics.SetPerspective(0.25f*DirectX::XM_PI, 0.01f, 100.0f);
+	m_Graphics.Initialize(handle, true);
+	m_Camera.Initialize(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
+	m_Graphics.SetCamera(&m_Camera);
+
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
 
 	m_Graphics.CreateSpriteBatch();
