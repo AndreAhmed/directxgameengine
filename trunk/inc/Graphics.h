@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Globals.h"
+#include "Camera.h"
 #include "SpriteBatch.h"
 
 
@@ -10,22 +11,23 @@ public:
 	 cGraphics ();
 	~ cGraphics ();
 
-	HRESULT Initialize(HWND hwnd, bool windowed);
+	void    Initialize(HWND hwnd, bool windowed);
 	void    Render();
 	void    Clear();
 	void    Release();
-	void    SetPerspective(float fov, float near, float far);
-	void	LookAt(float x, float y, float z);
+	void    SetCamera(cCamera *camara);
 	void    CreateSpriteBatch();
+
+	DirectX::XMMATRIX  getViewMatrix();
+	DirectX::XMMATRIX  getProjectionMatrix();
 
 	HRESULT SetWireFrameMode(BOOL enable);
 	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
 	float	AspectRatio();
 	ID3D11Device*         getDevice();
 	ID3D11DeviceContext * getContext();
-	DirectX::XMMATRIX	  getViewMatrix();
-	DirectX::XMMATRIX     getProjMatrix();
-	std::shared_ptr<DirectX::SpriteBatch> getSpriteBatch();
+ 	std::shared_ptr<DirectX::SpriteBatch> getSpriteBatch();
+
 private:
 	D3D_DRIVER_TYPE         m_driverType = D3D_DRIVER_TYPE_NULL;
 	D3D_FEATURE_LEVEL       m_featureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -44,10 +46,7 @@ private:
 	UINT m_Width;
 	UINT m_Height;
 	std::shared_ptr<DirectX::SpriteBatch> m_SpriteBatch; // shared sprite batch
-private:
-	
-	DirectX::XMMATRIX m_View;
-	DirectX::XMMATRIX m_Proj;
+	cCamera *m_pCamera; // current camera;
 
 };
 
@@ -84,49 +83,4 @@ struct Mesh
 };
 
   
-class cGrid
-{
-public:
-
-	struct ConstantBuffer
-	{
-		DirectX::XMMATRIX mWorld;
-		DirectX::XMMATRIX mView;
-		DirectX::XMMATRIX mProjection;
-		DirectX::XMFLOAT4 vLightDir;
-		DirectX::XMFLOAT4 vLightColor;
-		DirectX::XMFLOAT4 vOutputColor;
-	};
-
-public:
-	cGrid();
-	~cGrid();
-	void InitGrid(cGraphics *Graphics);
-	HRESULT CreateGrid(float width, float depth, UINT n, UINT m);
-	HRESULT CompileFX();
-	void Update();
-	void DrawGrid();
-	void Release();
-	Mesh getMesh() { return m_Mesh; }
-private: 
-	cGraphics *m_pGraphics;
-	Mesh m_Mesh;
-	DirectX::XMMATRIX  m_World;
-	int m_Widht;
-	int m_Depth;
-	UINT m_IndicesSize;
-
-private:
-	ID3D11Buffer* mVB = nullptr;
-	ID3D11Buffer* mIB = nullptr;
-	ID3DBlob* m_pVSBlob = nullptr;
-	ID3D11VertexShader*     m_pVertexShader = nullptr;
-	ID3D11PixelShader*      m_pPixelShader = nullptr;
-	ID3D11PixelShader*		m_pPixelShaderSolid = nullptr;
-	ID3D11InputLayout*		m_InputLayout = nullptr;
-	ID3D11Buffer*           m_pConstantBuffer = nullptr;
-
-};
-
-
  

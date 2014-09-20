@@ -5,6 +5,8 @@
 #include "RenderStateHelper.h"
 #include "SpriteFont.h"
 #include "Timer.h"
+#include "Grid.h"
+#include "Camera.h"
 
 class GameApp
 {
@@ -22,16 +24,18 @@ public:
 	float Clamp(float x, float low, float high);
 public:
 	cGraphics m_Graphics;
+	cCamera   m_Camera;
 	cGrid     m_Grid;
 	cTimer	  m_Timer;
+	cAnimatedSprite m_Animated;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
-
 	RenderStateHelper* m_RenderStateHelper;
+
 
 	float mPhi = 0.1f*DirectX::XM_PI;
 	float mTheta = 1.5f*DirectX::XM_PI;
 	float mRadius = 200;
 	POINT mLastMousePos;
-	cAnimatedSprite m_Animated;
+	
 	
 };

@@ -37,6 +37,12 @@
     <ClCompile Include="..\src\Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\bin\Fx\Color.fx">
@@ -113,10 +119,22 @@
     <ClInclude Include="..\inc\Timer.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\inc\EngineException.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Grid.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Camera.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\inc\Common\SimpleMath.inl">
       <Filter>Headers\Common</Filter>
+    </None>
+    <None Include="..\bin\Fx\Shader.dgsl">
+      <Filter>FX</Filter>
     </None>
   </ItemGroup>
 </Project>
