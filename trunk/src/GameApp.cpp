@@ -87,16 +87,16 @@ void GameApp::Game_Update()
  
 
 	if (GetAsyncKeyState('W') & 0x8000)
-		m_Camera.Walk(100.0f*dt);
+		m_Camera.Walk(5*dt);
 
 	if (GetAsyncKeyState('S') & 0x8000)
-		m_Camera.Walk(-100.0f*dt);
+		m_Camera.Walk(-5*dt);
 
 	if (GetAsyncKeyState('A') & 0x8000)
-		m_Camera.Strafe(-100.0f*dt);
+		m_Camera.Strafe(-5*dt);
 
 	if (GetAsyncKeyState('D') & 0x8000)
-		m_Camera.Strafe(100.0f*dt);
+		m_Camera.Strafe(5*dt);
  
 	m_Camera.Update();
 	m_Animated.Update(dt);
@@ -126,7 +126,7 @@ void GameApp::Game_Init(HWND handle)
 	m_Graphics.CreateSpriteBatch();
 
 	m_Grid.InitGrid(&m_Graphics);
-	m_Grid.CreateGrid(160.0f, 160.0f, 20, 20);
+	m_Grid.CreateGrid(360.0f, 360.0f, 20, 20);
 	m_Grid.CompileFX();
  
 	m_SpriteFont = std::shared_ptr<SpriteFont>(new SpriteFont(m_Graphics.getDevice(), L"Arial_14_Regular.spritefont"));
