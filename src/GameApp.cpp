@@ -25,11 +25,7 @@ void GameApp::OnMouseUp(WPARAM btnState, int x, int y)
 {
 	ReleaseCapture();
 }
-
-float GameApp::Clamp(float x, float low, float high)
-{
-	return x < low ? low : (x > high ? high : x);
-}
+ 
 void GameApp::OnMouseMove(WPARAM btnState, int x, int y)
 {
 	if ((btnState & MK_LBUTTON) != 0)
@@ -38,25 +34,11 @@ void GameApp::OnMouseMove(WPARAM btnState, int x, int y)
 		float dx = XMConvertToRadians(0.25f*static_cast<float>(x - mLastMousePos.x));
 		float dy = XMConvertToRadians(0.25f*static_cast<float>(y - mLastMousePos.y));
 
-		// Update angles based on input to orbit camera around box.
-		mTheta += dx;
-		mPhi += dy;
+		m_Camera.Pitch(dy);
+		m_Camera.RotateY(dx);
 
-		// Restrict the angle mPhi.
-		mPhi = Clamp(mPhi, 0.1f, XM_PI - 0.1f);
 	}
-	else if ((btnState & MK_RBUTTON) != 0)
-	{
-		// Make each pixel correspond to 0.2 unit in the scene.
-		float dx = 0.2f*static_cast<float>(x - mLastMousePos.x);
-		float dy = 0.2f*static_cast<float>(y - mLastMousePos.y);
-
-		// Update the camera radius based on input.
-		mRadius += dx - dy;
-
-		// Restrict the radius.
-		mRadius = Clamp(mRadius, 50.0f, 500.0f);
-	}
+ 
 
 	mLastMousePos.x = x;
 	mLastMousePos.y = y;
@@ -102,15 +84,21 @@ void GameApp::Game_Update()
 	m_Timer.UpdateFPS();
 	m_Timer.UpdateTimer();
 	float dt = m_Timer.GetTime();
+ 
 
-	// Convert Spherical to Cartesian coordinates.
-	float x = mRadius * sinf(mPhi)*cosf(mTheta);
-	float z = mRadius * sinf(mPhi)*sinf(mTheta);
-	float y = mRadius * cosf(mPhi);
-	m_Camera.SetPosition(XMFLOAT3(x, y, z));
+	if (GetAsyncKeyState('W') & 0x8000)
+		m_Camera.Walk(100.0f*dt);
 
-	m_Camera.Update(dt);
-	m_Animated.SetPos(XMFLOAT2(240, 250));
+	if (GetAsyncKeyState('S') & 0x8000)
+		m_Camera.Walk(-100.0f*dt);
+
+	if (GetAsyncKeyState('A') & 0x8000)
+		m_Camera.Strafe(-100.0f*dt);
+
+	if (GetAsyncKeyState('D') & 0x8000)
+		m_Camera.Strafe(100.0f*dt);
+ 
+	m_Camera.Update();
 	m_Animated.Update(dt);
 }
 
@@ -126,8 +114,12 @@ void GameApp::Game_Init(HWND handle)
 {
 
 	m_Graphics.Initialize(handle, true);
-	m_Camera.Initialize(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
+	m_Camera.Initialize();
+	m_Camera.SetPerspective(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
+	m_Camera.SetPosition(XMFLOAT3(0, 150, -56));
+	m_Camera.LookAt(XMVectorSet(0, 0, 0, 0));
 	m_Graphics.SetCamera(&m_Camera);
+
 
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
 
@@ -142,6 +134,7 @@ void GameApp::Game_Init(HWND handle)
 	m_RenderStateHelper = new RenderStateHelper(&m_Graphics);
 
 	m_Animated.InitAnimation(&m_Graphics, "wraithb.png", 8, 4, 0.9f);
-	
+	m_Animated.SetPos(XMFLOAT2(240, 250));
+
 	m_Timer.Initialize();
 }
