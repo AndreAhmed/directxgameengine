@@ -61,7 +61,7 @@ void GameApp::Graphics_2D()
 {
 	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
 	m_RenderStateHelper->SaveAll();
-	m_Animated.DrawAnimation();
+	m_Animated->Draw();
 
 	int fps = m_Timer.GetFps();
 	m_Graphics.getSpriteBatch()->Begin();
@@ -85,28 +85,15 @@ void GameApp::Game_Update()
 	m_Timer.UpdateTimer();
 	float dt = m_Timer.GetTime();
  
-
-	if (GetAsyncKeyState('W') & 0x8000)
-		m_Camera.Walk(5*dt);
-
-	if (GetAsyncKeyState('S') & 0x8000)
-		m_Camera.Walk(-5*dt);
-
-	if (GetAsyncKeyState('A') & 0x8000)
-		m_Camera.Strafe(-5*dt);
-
-	if (GetAsyncKeyState('D') & 0x8000)
-		m_Camera.Strafe(5*dt);
- 
-	m_Camera.Update();
-	m_Animated.Update(dt);
+	m_Camera.Update(dt);
+	m_Animated->Update(dt);
 }
 
 void GameApp::Game_CleanUp()
 {
 	m_Graphics.Release();
 	m_Grid.Release(); 
-	m_Animated.Release();
+	m_Animated->Release();
 	
 }
 
@@ -133,8 +120,8 @@ void GameApp::Game_Init(HWND handle)
 
 	m_RenderStateHelper = new RenderStateHelper(&m_Graphics);
 
-	m_Animated.InitAnimation(&m_Graphics, "wraithb.png", 8, 4, 0.9f);
-	m_Animated.SetPos(XMFLOAT2(240, 250));
+	m_Animated = std::shared_ptr<cAnimatedSprite>(new cAnimatedSprite(&m_Graphics, "wraithb.png", 8, 4, 0.9f));
+	m_Animated->SetPos(XMFLOAT2(240, 250));
 
 	m_Timer.Initialize();
 }

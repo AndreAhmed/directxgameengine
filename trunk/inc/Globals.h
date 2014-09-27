@@ -28,3 +28,4 @@
 #include <memory>
 
 #include "EngineException.h"
+#include "RTTI.h"

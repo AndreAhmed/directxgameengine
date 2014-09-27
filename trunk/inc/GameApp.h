@@ -27,14 +27,10 @@ public:
 	cCamera   m_Camera;
 	cGrid     m_Grid;
 	cTimer	  m_Timer;
-	cAnimatedSprite m_Animated;
+	std::shared_ptr<cAnimatedSprite> m_Animated;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
 	RenderStateHelper* m_RenderStateHelper;
-
-
-	float mPhi = 0.1f*DirectX::XM_PI;
-	float mTheta = 1.5f*DirectX::XM_PI;
-	float mRadius = 200;
+ 
 	POINT mLastMousePos;
 	
 	
