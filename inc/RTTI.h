@@ -1,9 +1,7 @@
 #pragma once
 
 #include <string>
-
-namespace Library
-{
+ 
     class RTTI
     {
     public:
@@ -41,7 +39,7 @@ namespace Library
             static std::string TypeName() { return std::string(#Type); }                                     \
             virtual const unsigned int& TypeIdInstance() const { return Type::TypeIdClass(); }               \
             static  const unsigned int& TypeIdClass() { return sRunTimeTypeId; }                             \
-            virtual Library::RTTI* QueryInterface( const unsigned int id ) const                             \
+            virtual RTTI* QueryInterface( const unsigned int id ) const                             \
             {                                                                                                \
                 if (id == sRunTimeTypeId)                                                                    \
                     { return (RTTI*)this; }                                                                  \
@@ -62,8 +60,8 @@ namespace Library
                 else                                                                                         \
                     { return ParentType::Is(name); }                                                         \
             }                                                                                                \
-       private:                                                                                              \
+       public:                                                                                              \
             static unsigned int sRunTimeTypeId;
 
     #define RTTI_DEFINITIONS(Type) unsigned int Type::sRunTimeTypeId = (unsigned int)& Type::sRunTimeTypeId;
-}
+ 

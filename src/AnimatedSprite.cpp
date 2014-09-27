@@ -4,30 +4,32 @@ using namespace DirectX;
 using namespace std;
 using namespace Microsoft::WRL;
 
-cAnimatedSprite::cAnimatedSprite()
+cAnimatedSprite::cAnimatedSprite(cGraphics *graphics, const std::string fileName, int frameNumbersX, int frameNumbersY, float speed) :
+cDrawableGameObject(graphics), m_FileName(fileName), m_FrameNumbersX(frameNumbersX), m_FrameNumbersY(frameNumbersY), m_Speed(speed)
 {
-
+	Initialize();
 }
-void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &fileName, int frameNumbersX, int frameNumbersY, float speed)
+void cAnimatedSprite::Initialize()
 {
-	m_Graphics = graphics;
-	m_FrameNumbersX = frameNumbersX;
-	m_FrameNumbersY = frameNumbersY;
+	InitAnimation();
+}
+void cAnimatedSprite::InitAnimation()
+{
 	m_CurrFrameX = 0;
 	m_CurrFrameY = 0;
 	m_TotalElapsed = 0;
-	m_Speed = speed;
+
 	m_isPaused = false;
 	m_Pos = XMFLOAT2(0, 0);
 
-	std::wstring widestr = std::wstring(fileName.begin(), fileName.end());
+	std::wstring widestr = std::wstring(m_FileName.begin(), m_FileName.end());
 
-	HRESULT hr = CreateWICTextureFromFile(m_Graphics->getDevice(), m_Graphics->getContext(), widestr.c_str(), NULL, &m_SpriteTexture, NULL);
+	HRESULT hr = CreateWICTextureFromFile(m_pGraphics->getDevice(), m_pGraphics->getContext(), widestr.c_str(), NULL, &m_SpriteTexture, NULL);
 	if (FAILED(hr))
 	{
 		throw(cGameException(gameErrorNS::FATAL_ERROR, "Failed to initialize Sprite Texture."));
 	}
-		
+
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> resource;
 	m_SpriteTexture->GetResource(resource.GetAddressOf());
@@ -47,8 +49,7 @@ void cAnimatedSprite::InitAnimation(cGraphics *graphics, const std::string &file
 	m_FrameHeight = m_TextureHeight / m_FrameNumbersY;
 
 }
-
-void cAnimatedSprite::DrawAnimation()
+void cAnimatedSprite::Draw()
 {
 	if (m_isPaused)
 		return;
@@ -58,16 +59,16 @@ void cAnimatedSprite::DrawAnimation()
 	sourceRect.right = sourceRect.left + m_FrameWidth;
 	sourceRect.bottom = sourceRect.top + m_FrameHeight;
 
-	m_Graphics->getSpriteBatch()->Begin();
-	m_Graphics->getSpriteBatch()->Draw(m_SpriteTexture, m_Pos, &sourceRect, Colors::White);
-	m_Graphics->getSpriteBatch()->End();
+	m_pGraphics->getSpriteBatch()->Begin();
+	m_pGraphics->getSpriteBatch()->Draw(m_SpriteTexture, m_Pos, &sourceRect, Colors::White);
+	m_pGraphics->getSpriteBatch()->End();
 }
- 
+
 void cAnimatedSprite::Update(float deltaT)
 {
 	if (m_isPaused)
 		return;
-	
+
 	m_TotalElapsed += deltaT;
 	if (m_TotalElapsed > m_Speed)
 	{
@@ -93,21 +94,36 @@ void cAnimatedSprite::Release()
 	ReleaseCOM(m_SpriteTexture);
 }
 
-void cAnimatedSprite::SetPos(XMFLOAT2 &pos)
-{
-	m_Pos = pos;
-}
 
 void cAnimatedSprite::Resume()
 {
 	m_isPaused = false;
 	m_TotalElapsed = 0.f;
-	m_CurrFrameX = 0; 
+	m_CurrFrameX = 0;
 	m_CurrFrameY = 0;
 }
 
 void cAnimatedSprite::Pause()
 {
 	m_isPaused = true;
+}
+void cAnimatedSprite::SetPos(XMFLOAT2 &pos)
+{
+	m_Pos = pos;
+}
+
+XMFLOAT2 cAnimatedSprite::Position() const
+{
+	return m_Pos;
+}
+
+void cAnimatedSprite::SetAngle(float angle)
+{
+	m_Angle = angle;
+}
+
+float cAnimatedSprite::Angle() const
+{
+	return m_Angle;
 }
 

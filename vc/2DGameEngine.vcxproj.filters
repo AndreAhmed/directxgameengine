@@ -14,34 +14,67 @@
     <Filter Include="Headers\Common">
       <UniqueIdentifier>{1764169c-e75a-4ef9-ac2e-e0fee61af4ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Camera">
+      <UniqueIdentifier>{491670cc-6369-4cd5-bab6-6678f509ea6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Sprite">
+      <UniqueIdentifier>{83bdc16d-163e-4d0b-844d-bc31bbe58b8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Misc">
+      <UniqueIdentifier>{d3cd815b-27df-40d7-9cc4-c768365d1666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Device">
+      <UniqueIdentifier>{5b53e5f3-9691-4653-bdd4-3c996246588c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Grid">
+      <UniqueIdentifier>{e0ebfb8f-be84-46df-b1a3-3486243ce63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{b702eec3-08b5-43c9-8fba-093ec7ac960e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sprite">
+      <UniqueIdentifier>{6fa7c0e2-a878-4983-b914-daeaf51e3ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{7f8edd77-84a0-4889-9260-eed37133d52a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Grid">
+      <UniqueIdentifier>{047c27aa-0af4-4813-8226-676de04d2ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Device">
+      <UniqueIdentifier>{b9eec18f-fab0-4b6f-91cb-3060b8bf3be5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\GameApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\DrawableObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AnimatedSprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\RenderStateHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Timer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\Camera.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Grid.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Grid</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\AnimatedSprite.cpp">
+      <Filter>Source Files\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RenderStateHelper.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Timer.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameObject.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Graphics.cpp">
+      <Filter>Source Files\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DrawableGameObject.cpp">
+      <Filter>Source Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,16 +83,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\DrawableObject.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="..\inc\GameApp.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Globals.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Graphics.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\Audio.h">
@@ -107,26 +131,38 @@
     <ClInclude Include="..\inc\Common\XboxDDSTextureLoader.h">
       <Filter>Headers\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\inc\Camera.h">
+      <Filter>Headers\Camera</Filter>
+    </ClInclude>
     <ClInclude Include="..\inc\AnimatedSprite.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\RTTI.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\RenderStateHelper.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Timer.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="..\inc\GameObject.h">
+      <Filter>Headers\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\EngineException.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Graphics.h">
+      <Filter>Headers\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Globals.h">
+      <Filter>Headers\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RTTI.h">
+      <Filter>Headers\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Timer.h">
+      <Filter>Headers\Misc</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Grid.h">
-      <Filter>Headers</Filter>
+      <Filter>Headers\Grid</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\Camera.h">
-      <Filter>Headers</Filter>
+    <ClInclude Include="..\inc\RenderStateHelper.h">
+      <Filter>Headers\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\DrawableGameObject.h">
+      <Filter>Headers\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
