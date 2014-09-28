@@ -25,7 +25,7 @@ public:
 	void Pause();
 	void Resume();
 	void SetCurrentFrame(int frameX, int frameY);
-private:
+protected:
 	std::shared_ptr<DirectX::SpriteBatch> m_SpriteBatch;
 	ID3D11ShaderResourceView* m_SpriteTexture;
 	std::string m_FileName;

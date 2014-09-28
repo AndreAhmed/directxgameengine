@@ -12,7 +12,10 @@ public:
 	virtual void Draw() override;
 	virtual void Update(float dt) override;
 private:
-
+	bool m_isJumping;
+	float m_vSpeed;
+	float m_fallConst;
+	float m_Jumpspeed;
 	DirectX::XMFLOAT2 m_Vel; 
 
 };

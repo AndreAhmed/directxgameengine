@@ -82,9 +82,7 @@ void GameApp::Game_Update()
 	float dt = m_Timer.GetTime();
 	static float angle = 10.0f;
 	m_Camera.Update(dt);
-
-	angle += 0.05f*dt;
-	m_FlappyBird->SetAngle(angle);
+	 
 	m_FlappyBird->Update(dt);
 }
 
