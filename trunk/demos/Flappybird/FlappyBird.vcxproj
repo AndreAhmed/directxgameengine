@@ -13,9 +13,11 @@
   <ItemGroup>
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\Bird.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameApp.h" />
+    <ClInclude Include="inc\Bird.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{46313687-F9C2-46DA-B0B6-CEFDC7C692ED}</ProjectGuid>
@@ -56,7 +58,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)..\inc;$(SolutionDir)..\inc\Common</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Flappybird\inc;$(WindowsSDK_IncludePath);$(SolutionDir)..\inc;$(SolutionDir)..\inc\Common</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
     </ClCompile>

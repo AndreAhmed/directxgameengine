@@ -7,6 +7,7 @@
 #include "Timer.h"
 #include "Grid.h"
 #include "Camera.h"
+#include "Bird.h"
 
 class GameApp
 {
@@ -24,14 +25,10 @@ public:
 	float Clamp(float x, float low, float high);
 public:
 	cGraphics m_Graphics;
+ 	cTimer	  m_Timer;
 	cCamera   m_Camera;
-	cGrid     m_Grid;
-	cTimer	  m_Timer;
-	std::shared_ptr<cAnimatedSprite> m_Animated;
+	std::shared_ptr<cBird> m_FlappyBird;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
 	RenderStateHelper* m_RenderStateHelper;
- 
-	POINT mLastMousePos;
-	
-	
+ 	POINT mLastMousePos;
 };

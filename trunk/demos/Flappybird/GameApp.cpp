@@ -48,11 +48,7 @@ void GameApp::OnMouseMove(WPARAM btnState, int x, int y)
 void GameApp::Game_Render()
 {
 	m_Graphics.Clear();
-
-	m_Grid.DrawGrid();
-
-	Graphics_2D();
-
+    Graphics_2D();
 	m_Graphics.Render();
 }
 
@@ -61,7 +57,7 @@ void GameApp::Graphics_2D()
 {
 	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
 	m_RenderStateHelper->SaveAll();
-	m_Animated->Draw();
+	m_FlappyBird->Draw();
 
 	int fps = m_Timer.GetFps();
 	m_Graphics.getSpriteBatch()->Begin();
@@ -88,16 +84,13 @@ void GameApp::Game_Update()
 	m_Camera.Update(dt);
 
 	angle += 0.05f*dt;
-	m_Animated->SetAngle(angle);
-	m_Animated->Update(dt);
+	m_FlappyBird->SetAngle(angle);
+	m_FlappyBird->Update(dt);
 }
 
 void GameApp::Game_CleanUp()
 {
-	m_Graphics.Release();
-	m_Grid.Release(); 
-	m_Animated->Release();
-	
+ 	m_FlappyBird->Release();
 }
 
 void GameApp::Game_Init(HWND handle)
@@ -109,22 +102,14 @@ void GameApp::Game_Init(HWND handle)
 	m_Camera.SetPosition(XMFLOAT3(0, 150, -56));
 	m_Camera.LookAt(XMVectorSet(0, 0, 0, 0));
 	m_Graphics.SetCamera(&m_Camera);
-
-
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
-
 	m_Graphics.CreateSpriteBatch();
-
-	m_Grid.InitGrid(&m_Graphics);
-	m_Grid.CreateGrid(360.0f, 360.0f, 20, 20);
-	m_Grid.CompileFX();
  
 	m_SpriteFont = std::shared_ptr<SpriteFont>(new SpriteFont(m_Graphics.getDevice(), L"Arial_14_Regular.spritefont"));
-
 	m_RenderStateHelper = new RenderStateHelper(&m_Graphics);
 
-	m_Animated = std::shared_ptr<cAnimatedSprite>(new cAnimatedSprite(&m_Graphics, "bird.png", 2, 1, 0.3f, true));
-	m_Animated->SetPos(XMFLOAT2(240, 250));
+	m_FlappyBird = std::shared_ptr<cBird>(new cBird(&m_Graphics, "bird.png", 2, 1, 0.3f, true));
+	m_FlappyBird->SetPos(XMFLOAT2(240, 250));
 	
 	m_Timer.Initialize();
 }
