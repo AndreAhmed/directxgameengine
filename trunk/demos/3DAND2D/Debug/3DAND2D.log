@@ -1,0 +1,12 @@
+﻿Build started 9/28/2014 3:46:51 PM.
+     1>Project "C:\Users\ahmed\Desktop\DirectX_Engine\directxgameengine\demos\3DAND2D\3DAND2D.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\bin\3DAND2D.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\ahmed\Desktop\DirectX_Engine\directxgameengine\vc\..\lib d3d11.lib d3dcompiler.lib dxguid.lib winmm.lib 2DGameEngine.lib DirectXTKd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\bin\3DAND2D.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\bin\3DAND2D.lib" /MACHINE:X86 Debug\GameApp.obj
+         Debug\Main.obj
+         3DAND2D.vcxproj -> C:\Users\ahmed\Desktop\DirectX_Engine\directxgameengine\demos\3DAND2D\.\bin\3DAND2D.exe
+     1>Done Building Project "C:\Users\ahmed\Desktop\DirectX_Engine\directxgameengine\demos\3DAND2D\3DAND2D.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.90
