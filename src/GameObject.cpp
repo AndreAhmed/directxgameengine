@@ -2,7 +2,7 @@
 
 RTTI_DEFINITIONS(cGameObject)
 
-cGameObject::cGameObject(cGraphics *graphics) :m_pGraphics(graphics)
+cGameObject::cGameObject(cGraphics *graphics) :m_pGraphics(graphics), m_Enabled(true)
 {
 }
 
