@@ -21,7 +21,7 @@ void cAnimatedSprite::InitAnimation()
 	m_isAnimComplete = false;
 	m_isPaused = false;
 	m_Pos = XMFLOAT2(0, 0);
-
+	m_Angle = 0;
 	std::wstring widestr = std::wstring(m_FileName.begin(), m_FileName.end());
 
 	HRESULT hr = CreateWICTextureFromFile(m_pGraphics->getDevice(), m_pGraphics->getContext(), widestr.c_str(), NULL, &m_SpriteTexture, NULL);
