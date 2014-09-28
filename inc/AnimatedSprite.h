@@ -6,7 +6,7 @@
 #include "WICTextureLoader.h"
 #include "Graphics.h"
 
-class cAnimatedSprite : cDrawableGameObject
+class cAnimatedSprite : public cDrawableGameObject
 {
 
 public:
