@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2DGameEngine", "2DGameEngine.vcxproj", "{C49A0A0E-3978-4E6D-811D-25B219024134}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlappyBird", "..\demos\Flappybird\FlappyBird.vcxproj", "{46313687-F9C2-46DA-B0B6-CEFDC7C692ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3DAND2D", "..\demos\3DAND2D\3DAND2D.vcxproj", "{6305186B-1206-4D5D-A103-A44EE37EAFBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +19,14 @@ Global
 		{C49A0A0E-3978-4E6D-811D-25B219024134}.Debug|Win32.Build.0 = Debug|Win32
 		{C49A0A0E-3978-4E6D-811D-25B219024134}.Release|Win32.ActiveCfg = Release|Win32
 		{C49A0A0E-3978-4E6D-811D-25B219024134}.Release|Win32.Build.0 = Release|Win32
+		{46313687-F9C2-46DA-B0B6-CEFDC7C692ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{46313687-F9C2-46DA-B0B6-CEFDC7C692ED}.Debug|Win32.Build.0 = Debug|Win32
+		{46313687-F9C2-46DA-B0B6-CEFDC7C692ED}.Release|Win32.ActiveCfg = Release|Win32
+		{46313687-F9C2-46DA-B0B6-CEFDC7C692ED}.Release|Win32.Build.0 = Release|Win32
+		{6305186B-1206-4D5D-A103-A44EE37EAFBE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6305186B-1206-4D5D-A103-A44EE37EAFBE}.Debug|Win32.Build.0 = Debug|Win32
+		{6305186B-1206-4D5D-A103-A44EE37EAFBE}.Release|Win32.ActiveCfg = Release|Win32
+		{6305186B-1206-4D5D-A103-A44EE37EAFBE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

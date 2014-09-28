@@ -46,12 +46,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\GameApp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Camera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
@@ -83,9 +77,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\GameApp.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="..\inc\Common\Audio.h">
       <Filter>Headers\Common</Filter>
     </ClInclude>

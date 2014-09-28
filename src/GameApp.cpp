@@ -1,4 +1,4 @@
-#include "GameApp.h"
+#include "..\..\GameApp.h"
 
 using namespace std;
 using namespace DirectX;
@@ -86,9 +86,9 @@ void GameApp::Game_Update()
 	float dt = m_Timer.GetTime();
 	static float angle = 10.0f;
 	m_Camera.Update(dt);
-	m_Animated->SetCurrentFrame(0,0);
+
 	angle += 0.05f*dt;
-	m_Animated->SetAngle(angle);
+	//m_Animated->SetAngle(angle);
 	m_Animated->Update(dt);
 }
 
@@ -123,7 +123,7 @@ void GameApp::Game_Init(HWND handle)
 
 	m_RenderStateHelper = new RenderStateHelper(&m_Graphics);
 
-	m_Animated = std::shared_ptr<cAnimatedSprite>(new cAnimatedSprite(&m_Graphics, "wraithb.png", 8, 4, 0.9f, true));
+	m_Animated = std::shared_ptr<cAnimatedSprite>(new cAnimatedSprite(&m_Graphics, "bird.png", 2, 1, 0.3f, true));
 	m_Animated->SetPos(XMFLOAT2(240, 250));
 	
 	m_Timer.Initialize();

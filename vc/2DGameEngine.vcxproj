@@ -14,16 +14,10 @@
     <ClCompile Include="..\src\AnimatedSprite.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\DrawableGameObject.cpp" />
-    <ClCompile Include="..\src\GameApp.cpp">
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
-    </ClCompile>
     <ClCompile Include="..\src\Graphics.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
     <ClCompile Include="..\src\Grid.cpp" />
-    <ClCompile Include="..\src\Main.cpp">
-      <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
-    </ClCompile>
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\RenderStateHelper.cpp" />
     <ClCompile Include="..\src\Timer.cpp" />
@@ -54,7 +48,6 @@
     <ClInclude Include="..\inc\DrawableGameObject.h" />
     <ClInclude Include="..\inc\GameObject.h" />
     <ClInclude Include="..\inc\EngineException.h" />
-    <ClInclude Include="..\inc\GameApp.h" />
     <ClInclude Include="..\inc\Globals.h" />
     <ClInclude Include="..\inc\Graphics.h" />
     <ClInclude Include="..\inc\Grid.h" />
@@ -72,7 +65,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -95,7 +88,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\bin</OutDir>
+    <OutDir>..\lib</OutDir>
     <IncludePath>..\inc\Common;..\inc;$(IncludePath)</IncludePath>
     <LibraryPath>..\lib;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
@@ -105,6 +98,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
