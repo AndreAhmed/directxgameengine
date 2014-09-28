@@ -4,8 +4,8 @@ using namespace DirectX;
 using namespace std;
 using namespace Microsoft::WRL;
 
-cAnimatedSprite::cAnimatedSprite(cGraphics *graphics, const std::string fileName, int frameNumbersX, int frameNumbersY, float speed) :
-cDrawableGameObject(graphics), m_FileName(fileName), m_FrameNumbersX(frameNumbersX), m_FrameNumbersY(frameNumbersY), m_Speed(speed)
+cAnimatedSprite::cAnimatedSprite(cGraphics *graphics, const std::string fileName, int frameNumbersX, int frameNumbersY, float speed, bool loopable) :
+cDrawableGameObject(graphics), m_FileName(fileName), m_FrameNumbersX(frameNumbersX), m_FrameNumbersY(frameNumbersY), m_Speed(speed), m_isLoopable(loopable)
 {
 	Initialize();
 }
@@ -18,7 +18,7 @@ void cAnimatedSprite::InitAnimation()
 	m_CurrFrameX = 0;
 	m_CurrFrameY = 0;
 	m_TotalElapsed = 0;
-
+	m_isAnimComplete = false;
 	m_isPaused = false;
 	m_Pos = XMFLOAT2(0, 0);
 
@@ -47,11 +47,12 @@ void cAnimatedSprite::InitAnimation()
 	m_TextureHeight = int(desc.Height);
 	m_FrameWidth = m_TextureWidth / m_FrameNumbersX;
 	m_FrameHeight = m_TextureHeight / m_FrameNumbersY;
-
+	m_Origin.x = (float)m_FrameWidth / 2;
+	m_Origin.y = (float)m_FrameHeight / 2;
 }
 void cAnimatedSprite::Draw()
 {
-	if (m_isPaused)
+	if (!m_Visible)
 		return;
 	RECT sourceRect;
 	sourceRect.left = m_CurrFrameX*m_FrameWidth;
@@ -60,20 +61,28 @@ void cAnimatedSprite::Draw()
 	sourceRect.bottom = sourceRect.top + m_FrameHeight;
 
 	m_pGraphics->getSpriteBatch()->Begin();
-	m_pGraphics->getSpriteBatch()->Draw(m_SpriteTexture, m_Pos, &sourceRect, Colors::White);
+	m_pGraphics->getSpriteBatch()->Draw(m_SpriteTexture, m_Pos, &sourceRect, Colors::White, m_Angle, m_Origin);
 	m_pGraphics->getSpriteBatch()->End();
 }
 
 void cAnimatedSprite::Update(float deltaT)
 {
-	if (m_isPaused)
+	if (m_isPaused || !m_Enabled)
 		return;
 
 	m_TotalElapsed += deltaT;
 	if (m_TotalElapsed > m_Speed)
 	{
 		m_TotalElapsed -= m_Speed;
-		m_CurrFrameX++;
+		if(m_isAnimComplete &&!m_isLoopable)
+		{
+			m_CurrFrameX = m_FrameNumbersX - 1;
+			m_CurrFrameY = m_FrameNumbersY - 1;
+		}
+		else
+		{
+			m_CurrFrameX++;
+		}
 
 		if (m_CurrFrameX >= m_FrameNumbersX)
 		{
@@ -82,11 +91,11 @@ void cAnimatedSprite::Update(float deltaT)
 
 			if (m_CurrFrameY >= m_FrameNumbersY)
 			{
-				m_CurrFrameY = 0;
+				m_isAnimComplete = TRUE;
+			    m_CurrFrameY = 0;
 			}
 		}
 	}
-
 }
 
 void cAnimatedSprite::Release()
@@ -119,11 +128,23 @@ XMFLOAT2 cAnimatedSprite::Position() const
 
 void cAnimatedSprite::SetAngle(float angle)
 {
-	m_Angle = angle;
+	m_Angle = angle *180/XM_PI;
 }
 
 float cAnimatedSprite::Angle() const
 {
 	return m_Angle;
 }
+
+void cAnimatedSprite::SetCurrentFrame(int frameX, int frameY)
+{
+	m_CurrFrameX = frameX;
+	m_CurrFrameY = frameY;
+}
+
+bool cAnimatedSprite::Loop() const
+{
+	return m_isLoopable;
+}
+
 
