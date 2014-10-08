@@ -134,6 +134,7 @@ int WINAPI WinMain(HINSTANCE hinstance,
 			DispatchMessage(&msg);
 		} // end if
 
+		app.UpdateTimers();
 		// main game processing goes here
 		app.Game_Update();
 		app.Game_Render();

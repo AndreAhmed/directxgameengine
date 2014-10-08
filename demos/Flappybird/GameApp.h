@@ -20,10 +20,13 @@ public:
 	void Game_Update();
 	void Game_CleanUp();
 	void Graphics_2D();
+	void Draw_Info();
+	void UpdateTimers();
 	void OnMouseDown(WPARAM btnState, int x, int y, HWND handle);
 	void OnMouseUp(WPARAM btnState, int x, int y);
 	void OnMouseMove(WPARAM btnState, int x, int y);
 	float Clamp(float x, float low, float high);
+	
 public:
 	cGraphics m_Graphics;
  	cTimer	  m_Timer;
