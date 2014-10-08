@@ -59,10 +59,9 @@ void cAnimatedSprite::Draw()
 	sourceRect.top = m_CurrFrameY*m_FrameHeight;
 	sourceRect.right = sourceRect.left + m_FrameWidth;
 	sourceRect.bottom = sourceRect.top + m_FrameHeight;
-
-	m_pGraphics->getSpriteBatch()->Begin();
+ 
 	m_pGraphics->getSpriteBatch()->Draw(m_SpriteTexture, m_Pos, &sourceRect, Colors::White, m_Angle, m_Origin);
-	m_pGraphics->getSpriteBatch()->End();
+ 
 }
 
 void cAnimatedSprite::Update(float deltaT)

@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Bird.h"
 
+
 class GameApp
 {
 public:
@@ -27,6 +28,7 @@ public:
 	cGraphics m_Graphics;
  	cTimer	  m_Timer;
 	cCamera   m_Camera;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_BackGround;
 	std::shared_ptr<cBird> m_FlappyBird;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
 	RenderStateHelper* m_RenderStateHelper;
