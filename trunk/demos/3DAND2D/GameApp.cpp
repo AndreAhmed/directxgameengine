@@ -61,18 +61,12 @@ void GameApp::Graphics_2D()
 {
 	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
 	m_RenderStateHelper->SaveAll();
-	m_Animated->Draw();
 
-	int fps = m_Timer.GetFps();
 	m_Graphics.getSpriteBatch()->Begin();
 
-	ostringstream ss;
-	ss << fps;
-	string fpsString = "FPS " + ss.str();
-	wstring widestrFPS = wstring(fpsString.begin(), fpsString.end());
+	m_Animated->Draw();
+	Draw_Info();
 
-	m_SpriteFont->DrawString(m_Graphics.getSpriteBatch().get(), L"Mixing 2D/3D Graphics Demo", XMFLOAT2(10, 10), Colors::White);
-	m_SpriteFont->DrawString(m_Graphics.getSpriteBatch().get(), widestrFPS.c_str(), XMFLOAT2(10, 30), Colors::Red);
 	m_Graphics.getSpriteBatch()->End();
 
 	m_RenderStateHelper->RestoreAll();
@@ -81,8 +75,7 @@ void GameApp::Graphics_2D()
 // Game Loop Update
 void GameApp::Game_Update()
 {
-	m_Timer.UpdateFPS();
-	m_Timer.UpdateTimer();
+
 	float dt = m_Timer.GetTime();
 	static float angle = 10.0f;
 	m_Camera.Update(dt);
@@ -127,4 +120,22 @@ void GameApp::Game_Init(HWND handle)
 	m_Animated->SetPos(XMFLOAT2(240, 250));
 	
 	m_Timer.Initialize();
+}
+
+void GameApp::Draw_Info()
+{
+	int fps = m_Timer.GetFps();
+	ostringstream ss;
+	ss << fps;
+	string fpsString = "FPS " + ss.str();
+	wstring widestrFPS = wstring(fpsString.begin(), fpsString.end());
+
+	m_SpriteFont->DrawString(m_Graphics.getSpriteBatch().get(), L"Mixing 2D/3D Graphics Demo, Keys WASD, and Mouse LB (FPS Camera)", XMFLOAT2(10, 10), Colors::White);
+	m_SpriteFont->DrawString(m_Graphics.getSpriteBatch().get(), widestrFPS.c_str(), XMFLOAT2(10, 30), Colors::Red);
+}
+
+void GameApp::UpdateTimers()
+{
+	m_Timer.UpdateFPS();
+	m_Timer.UpdateTimer();
 }
