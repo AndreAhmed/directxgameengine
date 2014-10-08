@@ -1,5 +1,9 @@
 #include "Bird.h"
 
+#define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
+#define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
+
+
 using namespace DirectX;
 RTTI_DEFINITIONS(cBird)
 
@@ -16,11 +20,11 @@ cBird::~cBird()
 
 void cBird::Initialize()
 {
-	m_vSpeed = 40;
-	m_fallConst = 500;
-	m_Jumpspeed = 150;
+	m_Jumpspeed = 340;
 	m_isJumping = false;
-	m_Vel = XMFLOAT2(0, m_vSpeed);
+	m_fallConst = 860;
+	m_Vel = XMFLOAT2(0, 0);
+	m_Acc = XMFLOAT2(0, m_fallConst);
 	cAnimatedSprite::Initialize();
 }
 
@@ -32,26 +36,25 @@ void cBird::Draw()
 
 void cBird::Update(float dt)
 {
-	
-
-	XMVECTOR Pos = XMLoadFloat2(&m_Pos);
-	XMVECTOR Vel = XMLoadFloat2(&m_Vel);
-  
-	if (GetAsyncKeyState('Z') & 0x8000)
-	{
-		m_isJumping = true;
-	}
-
-	if(m_isJumping)
+ 
+	bool qDown = GetAsyncKeyState('Z') & 0x8000;  
+	if (!qDown &&m_isJumping)
 	{
 		m_isJumping = false;
-		m_vSpeed = m_Jumpspeed;
+	 
 	}
-	Pos -= Vel*dt;
-	m_vSpeed -= m_fallConst*dt;
-	m_Vel.y = m_vSpeed;
-	XMStoreFloat2(&m_Pos, Pos);
+	else if (qDown && !m_isJumping)
+	{
+		m_isJumping = true;
+		m_Vel.y = -m_Jumpspeed;
+ 	}
+ 
+	if (m_Vel.y > 300)
+		m_Vel.y = 300;
 
+	m_Vel.y += m_Acc.y*dt;
+	m_Pos.y += m_Vel.y*dt;
+ 
 	cAnimatedSprite::Update(dt);
 }
 

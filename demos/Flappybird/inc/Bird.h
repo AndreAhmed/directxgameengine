@@ -13,9 +13,10 @@ public:
 	virtual void Update(float dt) override;
 private:
 	bool m_isJumping;
-	float m_vSpeed;
+	bool m_prevJumping;
 	float m_fallConst;
 	float m_Jumpspeed;
 	DirectX::XMFLOAT2 m_Vel; 
+	DirectX::XMFLOAT2 m_Acc;
 
 };
