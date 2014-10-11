@@ -52,7 +52,7 @@ void cBird::Update(float dt)
 	if (m_Vel.y > 300)
 		m_Vel.y = 300;
  
-	m_Angle = (float)atan2(m_Vel.y, 90);
+	m_Angle = (float)atan2(m_Vel.y, 300);
 	//SetAngle(m_Angle);
 	m_Vel.y += m_Acc.y*dt;
 	m_Pos.y += m_Vel.y*dt;
