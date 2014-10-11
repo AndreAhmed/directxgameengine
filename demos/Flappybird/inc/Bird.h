@@ -1,5 +1,6 @@
 #include "AnimatedSprite.h"
 #include "RTTI.h"
+#include "SimpleMath.h"
 
 class cBird : public cAnimatedSprite
 {
@@ -16,7 +17,7 @@ private:
 	bool m_prevJumping;
 	float m_fallConst;
 	float m_Jumpspeed;
-	DirectX::XMFLOAT2 m_Vel; 
-	DirectX::XMFLOAT2 m_Acc;
+	DirectX::SimpleMath::Vector2 m_Vel;
+	DirectX::SimpleMath::Vector2 m_Acc;
 
 };

@@ -6,8 +6,7 @@ HINSTANCE hinstance_app = NULL; // globally track hinstance
 // DEFINES ////////////////////////////////////////////////
 // defines for windows 
 #define WINDOW_CLASS_NAME "2D/3D Game Engine Course; Ahmed Saleh "
-#define WINDOW_WIDTH			640 
-#define WINDOW_HEIGHT			480
+
 
 using namespace DirectX;
 
@@ -96,9 +95,9 @@ int WINAPI WinMain(HINSTANCE hinstance,
 	// create the window
 	if (!(hwnd = CreateWindowEx(NULL,                  // extended style
 		L"DirectX Engine",     // class
-		L"2D/3D Game Engine- A.Tolba ", // title
+		L"Flappy bird clone ", // title
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		120, 100,	  // initial x,y
+		640, 200,	  // initial x,y
 		WINDOW_WIDTH, WINDOW_HEIGHT,  // initial width, height
 		NULL,	  // handle to parent 
 		NULL,	  // handle to menu
