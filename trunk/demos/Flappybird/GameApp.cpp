@@ -131,6 +131,9 @@ void GameApp::Game_Update()
 void GameApp::Game_CleanUp()
 {
  	m_FlappyBird->Release();
+	m_RenderStateHelper->Release();
+	m_BackGround = nullptr;
+	m_SpriteFont = nullptr;
 }
 
 void GameApp::Game_Init(HWND handle)
