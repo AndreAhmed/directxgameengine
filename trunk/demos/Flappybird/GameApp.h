@@ -8,7 +8,12 @@
 #include "Grid.h"
 #include "Camera.h"
 #include "Bird.h"
+#include "Obstacle.h"
+#include <list>
 
+
+#define WINDOW_WIDTH			320	 
+#define WINDOW_HEIGHT			480
 
 class GameApp
 {
@@ -33,7 +38,9 @@ public:
 	cCamera   m_Camera;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_BackGround;
 	std::shared_ptr<cBird> m_FlappyBird;
+	std::list<std::shared_ptr<cObstacle>> m_Obstacle;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
 	RenderStateHelper* m_RenderStateHelper;
  	POINT mLastMousePos;
+	float m_obstacleTimer;
 };

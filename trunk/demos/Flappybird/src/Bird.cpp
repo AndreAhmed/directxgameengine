@@ -1,10 +1,9 @@
 #include "Bird.h"
-
-#define KEY_DOWN(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
-#define KEY_UP(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 0 : 1)
-
+#include <math.h>
+ 
 
 using namespace DirectX;
+using namespace SimpleMath;
 RTTI_DEFINITIONS(cBird)
 
 cBird::cBird(cGraphics *graphics, const std::string fileName, int frameNumbersX, int frameNumbersY, float speed, bool loopable) :
@@ -15,16 +14,16 @@ cAnimatedSprite(graphics, fileName, frameNumbersX, frameNumbersY, speed, loopabl
 
 cBird::~cBird()
 {
-
+	m_pGraphics = nullptr;
 }
 
 void cBird::Initialize()
 {
-	m_Jumpspeed = 340;
+	m_Jumpspeed = 290;
 	m_isJumping = false;
-	m_fallConst = 860;
-	m_Vel = XMFLOAT2(0, 0);
-	m_Acc = XMFLOAT2(0, m_fallConst);
+	m_fallConst = 960;
+	m_Vel = Vector2(0, 0);
+	m_Acc = Vector2(0, m_fallConst);
 	cAnimatedSprite::Initialize();
 }
 
@@ -36,12 +35,13 @@ void cBird::Draw()
 
 void cBird::Update(float dt)
 {
+
+	static float angel = 0;
  
 	bool qDown = GetAsyncKeyState('Z') & 0x8000;  
 	if (!qDown &&m_isJumping)
 	{
 		m_isJumping = false;
-	 
 	}
 	else if (qDown && !m_isJumping)
 	{
@@ -51,7 +51,9 @@ void cBird::Update(float dt)
  
 	if (m_Vel.y > 300)
 		m_Vel.y = 300;
-
+ 
+	m_Angle = (float)atan2(m_Vel.y, 90);
+	//SetAngle(m_Angle);
 	m_Vel.y += m_Acc.y*dt;
 	m_Pos.y += m_Vel.y*dt;
  

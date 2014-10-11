@@ -127,7 +127,7 @@ XMFLOAT2 cAnimatedSprite::Position() const
 
 void cAnimatedSprite::SetAngle(float angle)
 {
-	m_Angle = angle *180/XM_PI;
+	m_Angle = XMConvertToRadians(angle);
 }
 
 float cAnimatedSprite::Angle() const
