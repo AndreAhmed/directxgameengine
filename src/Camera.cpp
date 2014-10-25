@@ -142,7 +142,22 @@ void cCamera::Update(float dt)
 	if (GetAsyncKeyState('D') & 0x8000)
 		Strafe(45 * dt);
 
+	if (GetAsyncKeyState('Z') & 0x8000)
+		MoveUp(-45 * dt);
+
+	if (GetAsyncKeyState('X') & 0x8000)
+		MoveUp(45 * dt);
+
 	UpdateViewMatrix();
+}
+
+void cCamera::MoveUp(float d)
+{
+	// mPosition += d*Up
+	XMVECTOR s = XMVectorReplicate(d);
+	XMVECTOR u = XMLoadFloat3(&m_Up);
+	XMVECTOR p = XMLoadFloat3(&m_Position);
+	XMStoreFloat3(&m_Position, XMVectorMultiplyAdd(s, u, p));
 }
 
 void cCamera::Strafe(float d)
