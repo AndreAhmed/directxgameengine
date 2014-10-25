@@ -15,6 +15,7 @@ public:
 	void SetPerspective(float fov, float aspect, float nearPlane, float farPlane);
 	void SetOrthographic(float viewWidth, FLOAT viewHeight, float zn, float zf);
 	void LookAt(const DirectX::XMVECTOR& target);
+	
 	DirectX::XMFLOAT3 m_Position;
 	DirectX::XMFLOAT3 m_Forward;
 	DirectX::XMFLOAT3 m_Up;
