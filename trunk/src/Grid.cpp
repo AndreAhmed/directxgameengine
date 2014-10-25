@@ -108,6 +108,15 @@ void cGrid::InitGrid(cGraphics *Graphics)
 	m_pGraphics = Graphics;
 	m_World = XMMatrixIdentity();
 }
+void cGrid::SetPosition(float x, float y, float z)
+{
+	m_Position.x = x;
+	m_Position.y = y;
+	m_Position.z = z;
+
+	XMMATRIX translation = XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
+	m_World = translation;
+}
 
 void cGrid::DrawGrid()
 {

@@ -63,8 +63,8 @@ void GameApp::Graphics_2D()
 {
 	// 2D Rendering; Disable Z-Buffer, Stencil,..etc
 	m_RenderStateHelper->SaveAll();
-
-	m_Graphics.getSpriteBatch()->Begin();
+	XMMATRIX m = m_Graphics.getViewMatrix();
+	m_Graphics.getSpriteBatch()->Begin(SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, nullptr, m);
 
 	m_Graphics.getSpriteBatch()->Draw(m_BackGround.Get(), XMFLOAT2(0, 0), nullptr, Colors::White, 0.f, XMFLOAT2(0, 0), 1.0f,
 		SpriteEffects_None);
@@ -142,8 +142,8 @@ void GameApp::Game_Init(HWND handle)
 	m_Graphics.Initialize(handle, true);
 	m_Camera.Initialize();
 	//m_Camera.SetPerspective(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
-	m_Camera.SetOrthographic(WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 100.0f);
-	m_Camera.SetPosition(XMFLOAT3(0, 0, -10.0f));
+	m_Camera.SetOrthographic(WINDOW_WIDTH, WINDOW_HEIGHT,0.1f, 100.0f);
+	m_Camera.SetPosition(XMFLOAT3(0, 0, -1.0f));
 	m_Camera.LookAt(XMVectorSet(0, 0, 0, 0));
 	m_Graphics.SetCamera(&m_Camera);
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
