@@ -52,5 +52,6 @@ public:
 	void RotateY(float angle);
 	void Walk(float d);
 	void Strafe(float d);
+    void MoveUp(float d);
 
 };

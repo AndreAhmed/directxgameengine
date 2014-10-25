@@ -99,17 +99,15 @@ void GameApp::Game_Init(HWND handle)
 	m_Graphics.Initialize(handle, true);
 	m_Camera.Initialize();
 	m_Camera.SetPerspective(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
-	m_Camera.SetPosition(XMFLOAT3(0, 150, -56));
-	m_Camera.LookAt(XMVectorSet(0, 0, 0, 0));
+	m_Camera.SetPosition(XMFLOAT3(1, 50, 1));
 	m_Graphics.SetCamera(&m_Camera);
-
-
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
 
 	m_Graphics.CreateSpriteBatch();
 
 	m_Grid.InitGrid(&m_Graphics);
 	m_Grid.CreateGrid(360.0f, 360.0f, 20, 20);
+	m_Grid.SetPosition(1, 1, 1);
 	m_Grid.CompileFX();
  
 	m_SpriteFont = std::shared_ptr<SpriteFont>(new SpriteFont(m_Graphics.getDevice(), L"Arial_14_Regular.spritefont"));

@@ -131,16 +131,16 @@ void cCamera::UpdateViewMatrix()
 void cCamera::Update(float dt)
 {
 	if (GetAsyncKeyState('W') & 0x8000)
-		Walk(15 * dt);
+		Walk(45 * dt);
 
 	if (GetAsyncKeyState('S') & 0x8000)
-		Walk(-15 * dt);
+		Walk(-45 * dt);
 
 	if (GetAsyncKeyState('A') & 0x8000)
-		Strafe(-15 * dt);
+		Strafe(-45 * dt);
 
 	if (GetAsyncKeyState('D') & 0x8000)
-		Strafe(15 * dt);
+		Strafe(45 * dt);
 
 	UpdateViewMatrix();
 }

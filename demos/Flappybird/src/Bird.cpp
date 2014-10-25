@@ -21,7 +21,7 @@ void cBird::Initialize()
 {
 	m_Jumpspeed = 290;
 	m_isJumping = false;
-	m_fallConst = 960;
+	m_fallConst = 1260;
 	m_Vel = Vector2(0, 0);
 	m_Acc = Vector2(0, m_fallConst);
 	cAnimatedSprite::Initialize();

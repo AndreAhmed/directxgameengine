@@ -22,6 +22,7 @@ public:
 	~cGrid();
 	void InitGrid(cGraphics *Graphics);
 	HRESULT CreateGrid(float width, float depth, UINT n, UINT m);
+	void    SetPosition(float x, float y, float z);
 	HRESULT CompileFX();
 	void Update();
 	void DrawGrid();
@@ -31,6 +32,7 @@ private:
 	cGraphics *m_pGraphics;
 	Mesh m_Mesh;
 	DirectX::XMMATRIX  m_World;
+	DirectX::XMFLOAT3  m_Position;
 	int m_Widht;
 	int m_Depth;
 	UINT m_IndicesSize;
