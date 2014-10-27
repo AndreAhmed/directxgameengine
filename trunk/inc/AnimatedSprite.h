@@ -25,12 +25,15 @@ public:
 	void Pause();
 	void Resume();
 	void SetCurrentFrame(int frameX, int frameY);
+	RECT GetBoundingRect();
+	DirectX::XMFLOAT2  GetOriginPoint();
 protected:
 	std::shared_ptr<DirectX::SpriteBatch> m_SpriteBatch;
 	ID3D11ShaderResourceView* m_SpriteTexture;
 	std::string m_FileName;
 	DirectX::XMFLOAT2  m_Origin;
 	DirectX::XMFLOAT2  m_Pos;
+	RECT			   m_CurrRect;
 	float			   m_Angle;
 	bool			   m_isAnimComplete;
 	bool			   m_isPaused;

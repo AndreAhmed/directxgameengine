@@ -12,12 +12,14 @@ public:
 	virtual void Initialize() override;
 	virtual void Draw() override;
 	virtual void Update(float dt) override;
-private:
+			bool CollideWith(RECT obstacle);
+public:
 	bool m_isJumping;
 	bool m_prevJumping;
+	bool m_isDead; 
 	float m_fallConst;
 	float m_Jumpspeed;
 	DirectX::SimpleMath::Vector2 m_Vel;
 	DirectX::SimpleMath::Vector2 m_Acc;
-
+	RECT  m_BoundingRect;
 };

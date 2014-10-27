@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "SimpleMath.h"
 
+
 class cObstacle
 {
 public:
@@ -9,8 +10,11 @@ public:
 	virtual ~cObstacle();
 	void Initialize();
 	void Draw();
-	void Update(float dt);
+	void Update(float deltaT);
+	RECT GetTopRect();
+	RECT GetBottomRect();
 public:
+	bool m_isScored;
 	DirectX::SimpleMath::Vector2 m_Pos;
 	RECT m_topRect;
 	RECT m_bottomRect;

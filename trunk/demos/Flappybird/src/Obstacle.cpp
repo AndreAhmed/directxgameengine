@@ -9,8 +9,8 @@ using namespace SimpleMath;
 
 void cObstacle::Initialize()
 {
-	m_Pos.y = RAND_RANGE(-200, 5);
- 
+	m_Pos.y =  RAND_RANGE(-200, 5);
+	m_isScored = false;
 }
 
 cObstacle::cObstacle(cGraphics *graphics, const wchar_t *fileName, Vector2 pos)
@@ -46,10 +46,26 @@ void cObstacle::Update(float dt)
 {
 	m_Pos.x -= 80.0f * dt;
 
-	m_topRect.left   =  m_Pos.x;
-	m_topRect.top    =  m_Pos.y;
-	m_topRect.right = 53;
-	m_topRect.bottom = 307;
-	 
+	m_topRect.left = m_Pos.x;
+	m_topRect.top = m_Pos.y;
+	m_topRect.right = 55 + m_topRect.left;
+	m_topRect.bottom = 308 + m_topRect.top;
+
+	m_bottomRect.left = m_Pos.x;
+	m_bottomRect.top = m_Pos.y + 460;
+	m_bottomRect.right = 55 + m_bottomRect.left;
+	m_bottomRect.bottom = 340 + m_bottomRect.top;
+	
+
+}
+
+RECT cObstacle::GetTopRect()
+{
+	return m_topRect;
+}
+
+RECT cObstacle::GetBottomRect()
+{
+	return m_bottomRect;
 }
 
