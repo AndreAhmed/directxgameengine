@@ -49,6 +49,10 @@ void cAnimatedSprite::InitAnimation()
 	m_FrameHeight = m_TextureHeight / m_FrameNumbersY;
 	m_Origin.x = (float)m_FrameWidth / 2;
 	m_Origin.y = (float)m_FrameHeight / 2;
+	m_CurrRect.left = m_Pos.x - m_Origin.x;
+	m_CurrRect.top = m_Pos.y - m_Origin.y;
+	m_CurrRect.right = m_FrameWidth;
+	m_CurrRect.bottom = m_FrameHeight;
 }
 void cAnimatedSprite::Draw()
 {
@@ -95,6 +99,11 @@ void cAnimatedSprite::Update(float deltaT)
 			}
 		}
 	}
+
+	m_CurrRect.left = m_Pos.x;
+	m_CurrRect.top = m_Pos.y;
+	m_CurrRect.right = m_FrameWidth;
+	m_CurrRect.bottom = m_FrameHeight;
 }
 
 void cAnimatedSprite::Release()
@@ -144,6 +153,16 @@ void cAnimatedSprite::SetCurrentFrame(int frameX, int frameY)
 bool cAnimatedSprite::Loop() const
 {
 	return m_isLoopable;
+}
+
+RECT cAnimatedSprite::GetBoundingRect()
+{
+	return m_CurrRect;
+}
+
+DirectX::XMFLOAT2 cAnimatedSprite::GetOriginPoint()
+{
+	return m_Origin;
 }
 
 

@@ -27,6 +27,7 @@ public:
 	void Graphics_2D();
 	void Draw_Info();
 	void UpdateTimers();
+	void ResetGame();
 	void OnMouseDown(WPARAM btnState, int x, int y, HWND handle);
 	void OnMouseUp(WPARAM btnState, int x, int y);
 	void OnMouseMove(WPARAM btnState, int x, int y);
@@ -37,10 +38,13 @@ public:
  	cTimer	  m_Timer;
 	cCamera   m_Camera;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_BackGround;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_DebugRect;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_DebugRectBird;
 	std::shared_ptr<cBird> m_FlappyBird;
-	std::list<std::shared_ptr<cObstacle>> m_Obstacle;
+	std::vector<std::shared_ptr<cObstacle>> m_Obstacle;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
 	RenderStateHelper* m_RenderStateHelper;
  	POINT mLastMousePos;
 	float m_obstacleTimer;
+	int   m_Score;
 };
