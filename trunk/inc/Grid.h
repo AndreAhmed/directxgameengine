@@ -24,6 +24,8 @@ public:
 	HRESULT CreateGrid(float width, float depth, UINT n, UINT m);
 	void    SetPosition(float x, float y, float z);
 	HRESULT CompileFX();
+	DirectX::XMMATRIX GetWorldMatrix();
+	void SetWorldMatrix(DirectX::CXMMATRIX worldMatrix);
 	void Update();
 	void DrawGrid();
 	void Release();
@@ -46,6 +48,8 @@ private:
 	ID3D11PixelShader*		m_pPixelShaderSolid = nullptr;
 	ID3D11InputLayout*		m_InputLayout = nullptr;
 	ID3D11Buffer*           m_pConstantBuffer = nullptr;
+	ID3D11ShaderResourceView* m_pGridTexture = nullptr;
+	ID3D11SamplerState* m_pGridTextureSampler = nullptr;
 
 };
 

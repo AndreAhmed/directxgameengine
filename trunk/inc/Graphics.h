@@ -56,23 +56,35 @@ class MeshVertex
 
 public:
 	MeshVertex(){}
-	MeshVertex(const DirectX::XMFLOAT3 &p, const DirectX::XMFLOAT3&n, const DirectX::XMFLOAT2 &uv, const DirectX::XMFLOAT3 &t) : Position(p), Normal(n), TextureCords(uv), TangentU(t)
-	{
-	 // copy ctr
-	}
+	//MeshVertex(const DirectX::XMFLOAT3 &p, const DirectX::XMFLOAT3&n, const DirectX::XMFLOAT2 &uv, const DirectX::XMFLOAT3 &t) : Position(p), Normal(n), TextureCords(uv), TangentU(t)
+	//{
+	// // copy ctr
+	//}
 
-	MeshVertex(float px, float py, float pz, float nx, float ny, float nz, float u, float v, float tx, float ty, float tz) : Position(px, py, pz),
-	    Normal(nx, ny, nz),
-		TextureCords(u, v), TangentU(tx, ty, tz)
+	MeshVertex(const DirectX::XMFLOAT3 &p, const DirectX::XMFLOAT2 &uv) : Position(p),TextureCords(uv) 
+	{
+		// copy ctr
+	}
+	//MeshVertex(float px, float py, float pz, float nx, float ny, float nz, float u, float v, float tx, float ty, float tz) : 
+	//	Position(px, py, pz),
+	//    //Normal(nx, ny, nz),
+	//	TextureCords(u, v)/*, TangentU(tx, ty, tz*/)
+	//{
+
+	//}
+	MeshVertex(float px, float py, float pz,  float u, float v) :
+		Position(px, py, pz),
+		//Normal(nx, ny, nz),
+		TextureCords(u, v)/*, TangentU(tx, ty, tz*/
 	{
 
 	}
 public:
 	DirectX::XMFLOAT3 Position;
-	DirectX::XMFLOAT3 Normal;
+	//DirectX::XMFLOAT3 Normal;
 	DirectX::XMFLOAT2 TextureCords;
-	DirectX::XMFLOAT3 TangentU;
-	DirectX::XMFLOAT4 Color;
+//	DirectX::XMFLOAT3 TangentU;
+//	DirectX::XMFLOAT4 Color;
 };
 
 

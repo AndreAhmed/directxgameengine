@@ -44,6 +44,12 @@
     <Filter Include="Source Files\Device">
       <UniqueIdentifier>{b9eec18f-fab0-4b6f-91cb-3060b8bf3be5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Geo">
+      <UniqueIdentifier>{8d48b111-5cd2-456c-b5ff-0af3d344e8f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Geo">
+      <UniqueIdentifier>{58a65a36-0ba4-4f8c-b56a-4abdef37bdfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Camera.cpp">
@@ -69,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="..\src\DrawableGameObject.cpp">
       <Filter>Source Files\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometryPrimitives.cpp">
+      <Filter>Source Files\Geo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="..\inc\DrawableGameObject.h">
       <Filter>Headers\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\GeometryPrimitives.h">
+      <Filter>Headers\Geo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

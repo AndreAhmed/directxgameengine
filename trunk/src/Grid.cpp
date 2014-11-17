@@ -1,4 +1,5 @@
 #include "Grid.h"
+#include "WICTextureLoader.h"
 
 using namespace DirectX;
 
@@ -33,8 +34,8 @@ HRESULT cGrid::CreateGrid(float width, float depth, UINT n, UINT m)
 			float x = -halfWidth + j*dx;
 
 			m_Mesh.m_Vertices[i*n + j].Position = XMFLOAT3(x, 0.0f, z);
-			m_Mesh.m_Vertices[i*n + j].Normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
-			m_Mesh.m_Vertices[i*n + j].TangentU = XMFLOAT3(1.0f, 0.0f, 0.0f);
+//			m_Mesh.m_Vertices[i*n + j].Normal = XMFLOAT3(0.0f, 1.0f, 0.0f);
+//			m_Mesh.m_Vertices[i*n + j].TangentU = XMFLOAT3(1.0f, 0.0f, 0.0f);
 
 			// Stretch texture over grid.
 			m_Mesh.m_Vertices[i*n + j].TextureCords.x = j*du;
@@ -140,13 +141,13 @@ void cGrid::DrawGrid()
 	cb1.vLightColor = vLightColor;
 
 	m_pGraphics->getContext()->UpdateSubresource(m_pConstantBuffer, 0, nullptr, &cb1, 0, 0);
-
+	
 	m_pGraphics->getContext()->VSSetShader(m_pVertexShader, nullptr, 0);
 	m_pGraphics->getContext()->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
 	m_pGraphics->getContext()->PSSetShader(m_pPixelShader, nullptr, 0);
 	m_pGraphics->getContext()->PSSetConstantBuffers(0, 1, &m_pConstantBuffer);
-
-
+	m_pGraphics->getContext()->PSSetShaderResources(0, 1, &m_pGridTexture);
+	m_pGraphics->getContext()->PSSetSamplers(0, 1, &m_pGridTextureSampler);
 	m_pGraphics->getContext()->DrawIndexed(m_IndicesSize, 0, 0);
 
 }
@@ -173,24 +174,6 @@ HRESULT cGrid::CompileFX()
 		return hr;
 	}
 
-	// Create the vertex input layout.
-	D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-
-	};
-
-	UINT numElements = ARRAYSIZE(vertexDesc);
-
-	// Create the input layout
-	hr = m_pGraphics->getDevice()->CreateInputLayout(vertexDesc, numElements, pVSBlob->GetBufferPointer(),
-		pVSBlob->GetBufferSize(), &m_InputLayout);
-	pVSBlob->Release();
-	if (FAILED(hr))
-		return hr;
-
 
 	// Compile the pixel shader
 	ID3DBlob* pPSBlob = nullptr;
@@ -207,6 +190,49 @@ HRESULT cGrid::CompileFX()
 	pPSBlob->Release();
 	if (FAILED(hr))
 		return hr;
+
+
+	// Create the vertex input layout.
+	D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	};
+	
+	//,
+	//{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	//
+	UINT numElements = ARRAYSIZE(vertexDesc);
+
+	// Create the input layout
+	hr = m_pGraphics->getDevice()->CreateInputLayout(vertexDesc, numElements, pVSBlob->GetBufferPointer(),
+		pVSBlob->GetBufferSize(), &m_InputLayout);
+	pVSBlob->Release();
+	if (FAILED(hr))
+		return hr;
+
+
+    hr = DirectX::CreateWICTextureFromFile(m_pGraphics->getDevice(), L"grass.jpg", nullptr, &m_pGridTexture);
+	if (FAILED(hr))
+	{
+		throw(cGameException(gameErrorNS::FATAL_ERROR, "Couldn't load  Grid texture."));
+	}
+
+
+
+	// Describe the Sample State
+	D3D11_SAMPLER_DESC sampDesc;
+	ZeroMemory(&sampDesc, sizeof(sampDesc));
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	//Create the Sample State
+	hr = m_pGraphics->getDevice()->CreateSamplerState(&sampDesc, &m_pGridTextureSampler);
 
 	return hr;
 
@@ -231,4 +257,14 @@ void cGrid::Release()
 	ReleaseCOM(m_pConstantBuffer);
 	ReleaseCOM(mIB);
 	ReleaseCOM(mVB);
+}
+
+DirectX::XMMATRIX cGrid::GetWorldMatrix()
+{
+	return m_World;
+}
+
+void cGrid::SetWorldMatrix(DirectX::CXMMATRIX worldMatrix)
+{
+	m_World = worldMatrix;
 }
