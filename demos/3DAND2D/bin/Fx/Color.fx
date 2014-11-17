@@ -1,3 +1,7 @@
+
+Texture2D ObjTexture : register(t0);
+SamplerState ObjSamplerState : register(s0);
+
 //--------------------------------------------------------------------------------------
 // Constant Buffer Variables
 //--------------------------------------------------------------------------------------
@@ -15,15 +19,15 @@ cbuffer ConstantBuffer : register(b0)
 struct VS_INPUT
 {
 	float4 Pos : POSITION;
-	float4 Color : COLOR;
-	float3 Normal : NORMAL;
+	float2 TextureCoord : TEXCOORD0;
+	//float3 Normal : NORMAL;
 };
 
 struct PS_INPUT
 {
 	float4 Pos : SV_POSITION;
-	float4 Color : COLOR;
-	float3 Normal : TEXCOORD0;
+	float2 TextureCoord : TEXCOORD0;
+	//float3 Normal : TEXCOORD0;
 };
 
 
@@ -36,9 +40,9 @@ PS_INPUT VS(VS_INPUT input)
 	output.Pos = mul(input.Pos, World);
 	output.Pos = mul(output.Pos, View);
 	output.Pos = mul(output.Pos, Projection);
-	output.Normal = mul(float4(input.Normal, 1), World).xyz;
-	
-	output.Color = input.Color;
+//	output.Normal = mul(float4(input.Normal, 1), World).xyz;
+	output.TextureCoord = input.TextureCoord;
+	//output.Color = input.Color;
 
 	return output;
 }
@@ -49,14 +53,16 @@ PS_INPUT VS(VS_INPUT input)
 //--------------------------------------------------------------------------------------
 float4 PS(PS_INPUT input) : SV_Target
 {
-  input.Normal = normalize(input.Normal);
-	float4 finalColor = 0;
+ // input.Normal = normalize(input.Normal);
+	//float4 finalColor = 0;
 
 	//do NdotL lighting 
-	finalColor = float4(0.0f, 1.0f, 0.0f, 1.0f);
-	finalColor += saturate(dot((float3)vLightDirection, input.Normal) * vLightColor);
+	//finalColor = float4(0.0f, 1.0f, 0.0f, 1.0f);
+	//finalColor += saturate(dot((float3)vLightDirection, input.Normal) * vLightColor);
 	
-	
-	 return finalColor;
+	float4 diffuse = ObjTexture.Sample(ObjSamplerState, input.TextureCoord);
+	diffuse.a = 1;
+
+  return diffuse;
 }
  

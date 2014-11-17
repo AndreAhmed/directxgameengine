@@ -14,6 +14,7 @@
     <ClCompile Include="..\src\AnimatedSprite.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\DrawableGameObject.cpp" />
+    <ClCompile Include="..\src\GeometryPrimitives.cpp" />
     <ClCompile Include="..\src\Graphics.cpp">
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ShowIncludes>
     </ClCompile>
@@ -48,6 +49,7 @@
     <ClInclude Include="..\inc\DrawableGameObject.h" />
     <ClInclude Include="..\inc\GameObject.h" />
     <ClInclude Include="..\inc\EngineException.h" />
+    <ClInclude Include="..\inc\GeometryPrimitives.h" />
     <ClInclude Include="..\inc\Globals.h" />
     <ClInclude Include="..\inc\Graphics.h" />
     <ClInclude Include="..\inc\Grid.h" />
