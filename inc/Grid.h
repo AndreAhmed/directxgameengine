@@ -26,6 +26,7 @@ public:
 	HRESULT CompileFX();
 	DirectX::XMMATRIX GetWorldMatrix();
 	void SetWorldMatrix(DirectX::CXMMATRIX worldMatrix);
+	void RotateAXIS(DirectX::FXMVECTOR axis, float angle);
 	void Update();
 	void DrawGrid();
 	void Release();
@@ -34,6 +35,8 @@ private:
 	cGraphics *m_pGraphics;
 	Mesh m_Mesh;
 	DirectX::XMMATRIX  m_World;
+	DirectX::XMMATRIX  m_Translation;
+	DirectX::XMMATRIX  m_Rotation;
 	DirectX::XMFLOAT3  m_Position;
 	int m_Widht;
 	int m_Depth;

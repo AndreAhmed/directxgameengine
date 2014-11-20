@@ -13,8 +13,13 @@
 #include "VertexTypes.h"
 #include "Effects.h"
 
+#include <AntTweakBar.h>
+
 #include "BulletDynamics/Dynamics/btDynamicsWorld.h"
 #include "btBulletDynamicsCommon.h"
+
+#define WINDOW_WIDTH			800 
+#define WINDOW_HEIGHT			600
 
 class GameApp
 {
@@ -49,6 +54,7 @@ public:
 	//std::unique_ptr<DirectX::BasicEffect>                            g_BatchEffect;
 	//std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>>    g_Batch;
 	std::unique_ptr<DirectX::GeometricPrimitive> m_Cube;
+	std::unique_ptr<DirectX::GeometricPrimitive> m_CubeSecond;
 	RenderStateHelper* m_RenderStateHelper;
  
 
@@ -58,9 +64,10 @@ public:
 	btCollisionDispatcher* m_pDispatcher;
 	btConstraintSolver* m_pSolver;
 	btDynamicsWorld* m_pWorld;
+	btDefaultMotionState* m_pBoxSecondMotionState;
 	btDefaultMotionState* m_pBoxMotionState;
 	btDefaultMotionState* m_pGroundMotionState;
 	POINT mLastMousePos;
-	
+	float m_CubeAngle;
 	
 };
