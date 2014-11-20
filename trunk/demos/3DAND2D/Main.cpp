@@ -20,7 +20,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 	LPARAM lparam)
 {
 	// this is the main message handler of the system
-
+	if (TwEventWin(hwnd, msg, wparam, lparam)) // send event message to AntTweakBar
+		return 0; // event has been handled by AntTweakBar
 	// what is the message 
 	switch (msg)
 	{

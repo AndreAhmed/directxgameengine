@@ -108,6 +108,8 @@ void cGrid::InitGrid(cGraphics *Graphics)
 {
 	m_pGraphics = Graphics;
 	m_World = XMMatrixIdentity();
+	m_Translation = XMMatrixIdentity();
+	m_Rotation = XMMatrixIdentity();
 }
 void cGrid::SetPosition(float x, float y, float z)
 {
@@ -115,8 +117,7 @@ void cGrid::SetPosition(float x, float y, float z)
 	m_Position.y = y;
 	m_Position.z = z;
 
-	XMMATRIX translation = XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
-	m_World = translation;
+	m_Translation = XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
 }
 
 void cGrid::DrawGrid()
@@ -132,8 +133,11 @@ void cGrid::DrawGrid()
 	UINT offset = 0;
 	m_pGraphics->getContext()->IASetVertexBuffers(0, 1, &mVB, &stride, &offset);
 	m_pGraphics->getContext()->IASetIndexBuffer(mIB, DXGI_FORMAT_R32_UINT, 0);
+	
+	m_World = XMMatrixIdentity();
 
 	ConstantBuffer cb1;
+	m_World = m_Translation*m_Rotation;
 	cb1.mWorld = XMMatrixTranspose(m_World);
 	cb1.mView = XMMatrixTranspose(m_pGraphics->getViewMatrix());
 	cb1.mProjection = XMMatrixTranspose(m_pGraphics->getProjectionMatrix());
@@ -267,4 +271,11 @@ DirectX::XMMATRIX cGrid::GetWorldMatrix()
 void cGrid::SetWorldMatrix(DirectX::CXMMATRIX worldMatrix)
 {
 	m_World = worldMatrix;
+}
+
+ 
+
+void cGrid::RotateAXIS(DirectX::FXMVECTOR axis, float angle)
+{
+	 m_Rotation = XMMatrixRotationAxis(axis, XMConvertToRadians(angle));
 }

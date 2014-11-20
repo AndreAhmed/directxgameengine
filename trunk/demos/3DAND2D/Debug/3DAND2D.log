@@ -1,4 +1,4 @@
-﻿Build started 11/18/2014 12:26:18 AM.
+﻿Build started 11/20/2014 10:56:49 PM.
      1>Project "C:\Users\Ahmed Saleh\Desktop\directxgameengine\demos\3DAND2D\3DAND2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>Link:
@@ -7,4 +7,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.07
+Time Elapsed 00:00:00.05
