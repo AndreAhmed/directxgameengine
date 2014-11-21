@@ -47,27 +47,10 @@ public:
 	cTimer	  m_Timer;
 	std::shared_ptr<cAnimatedSprite> m_Animated;
 	std::shared_ptr<DirectX::SpriteFont> m_SpriteFont;
-
-	//DirectX::BoundingBox    m_Box;
-	//ID3D11InputLayout*                  g_pBatchInputLayout = nullptr;
- //
-	//std::unique_ptr<DirectX::BasicEffect>                            g_BatchEffect;
-	//std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>>    g_Batch;
-	std::unique_ptr<DirectX::GeometricPrimitive> m_Cube;
-	std::unique_ptr<DirectX::GeometricPrimitive> m_CubeSecond;
+	 
 	RenderStateHelper* m_RenderStateHelper;
- 
-
-	// core Bullet components
-	btBroadphaseInterface* m_pBroadphase;
-	btCollisionConfiguration* m_pCollisionConfiguration;
-	btCollisionDispatcher* m_pDispatcher;
-	btConstraintSolver* m_pSolver;
-	btDynamicsWorld* m_pWorld;
-	btDefaultMotionState* m_pBoxSecondMotionState;
-	btDefaultMotionState* m_pBoxMotionState;
-	btDefaultMotionState* m_pGroundMotionState;
+  
 	POINT mLastMousePos;
-	float m_CubeAngle;
+	int m_Angle;;
 	
 };
