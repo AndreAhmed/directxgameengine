@@ -46,6 +46,9 @@ public:
 	void CreateGrid(float width, float depth, UINT m, UINT n, MeshData& meshData);
 
 	///<summary>
+	/// Create and Draw a Line
+
+	///<summary>
 	/// Creates a quad covering the screen in NDC coordinates.  This is useful for
 	/// postprocessing effects.
 	///</summary>

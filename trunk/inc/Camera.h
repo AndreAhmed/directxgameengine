@@ -44,7 +44,7 @@ public:
 	DirectX::XMMATRIX ProjectionMatrix();
 	DirectX::XMMATRIX ViewProjectionMatrix();
  
-	void SetPosition(const DirectX::XMFLOAT3& position);
+	void SetPosition(FLOAT x, FLOAT y, FLOAT z);
 	void UpdateViewMatrix();
 	void UpdateProjectionMatrix();
 	void ApplyRotation(const DirectX::XMFLOAT4X4& transform);

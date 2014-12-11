@@ -49,7 +49,8 @@ void GameApp::OnMouseMove(WPARAM btnState, int x, int y)
 void GameApp::Game_Render()
 {
 	m_Graphics.Clear();
-	 
+
+	m_Grid.DrawGrid();
 	Graphics_2D();
 
 	m_Graphics.Render();

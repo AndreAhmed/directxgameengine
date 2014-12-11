@@ -20,6 +20,7 @@
     </ClCompile>
     <ClCompile Include="..\src\Grid.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
+    <ClCompile Include="..\src\PhysicsDebugDrawer.cpp" />
     <ClCompile Include="..\src\RenderStateHelper.cpp" />
     <ClCompile Include="..\src\Timer.cpp" />
   </ItemGroup>
@@ -53,6 +54,7 @@
     <ClInclude Include="..\inc\Globals.h" />
     <ClInclude Include="..\inc\Graphics.h" />
     <ClInclude Include="..\inc\Grid.h" />
+    <ClInclude Include="..\inc\PhysicsDebugDrawer.h" />
     <ClInclude Include="..\inc\RenderStateHelper.h" />
     <ClInclude Include="..\inc\RTTI.h" />
     <ClInclude Include="..\inc\Timer.h" />
@@ -101,6 +103,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src;..\lib\Bullet\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
