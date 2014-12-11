@@ -8,27 +8,6 @@
     <Filter Include="FX">
       <UniqueIdentifier>{25ee2a3c-b28a-4d54-8689-8e15f1ffe750}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{030dca42-2c6a-42d8-8f4c-f02d758ec541}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Common">
-      <UniqueIdentifier>{1764169c-e75a-4ef9-ac2e-e0fee61af4ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Camera">
-      <UniqueIdentifier>{491670cc-6369-4cd5-bab6-6678f509ea6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Sprite">
-      <UniqueIdentifier>{83bdc16d-163e-4d0b-844d-bc31bbe58b8f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Misc">
-      <UniqueIdentifier>{d3cd815b-27df-40d7-9cc4-c768365d1666}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Device">
-      <UniqueIdentifier>{5b53e5f3-9691-4653-bdd4-3c996246588c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Headers\Grid">
-      <UniqueIdentifier>{e0ebfb8f-be84-46df-b1a3-3486243ce63e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{b702eec3-08b5-43c9-8fba-093ec7ac960e}</UniqueIdentifier>
     </Filter>
@@ -47,8 +26,11 @@
     <Filter Include="Source Files\Geo">
       <UniqueIdentifier>{8d48b111-5cd2-456c-b5ff-0af3d344e8f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\Geo">
-      <UniqueIdentifier>{58a65a36-0ba4-4f8c-b56a-4abdef37bdfc}</UniqueIdentifier>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{1764169c-e75a-4ef9-ac2e-e0fee61af4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{e9aca407-2788-4dd8-9106-8aa50c890521}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +61,9 @@
     <ClCompile Include="..\src\GeometryPrimitives.cpp">
       <Filter>Source Files\Geo</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PhysicsDebugDrawer.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\bin\Fx\Color.fx">
@@ -87,90 +72,93 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\inc\Common\Audio.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\CommonStates.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\DDSTextureLoader.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\DirectXHelpers.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\Effects.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\GeometricPrimitive.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\Model.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\PrimitiveBatch.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\ScreenGrab.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\SimpleMath.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\SpriteBatch.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\SpriteFont.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\VertexTypes.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\WICTextureLoader.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Common\XboxDDSTextureLoader.h">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Camera.h">
-      <Filter>Headers\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\AnimatedSprite.h">
-      <Filter>Headers\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\GameObject.h">
-      <Filter>Headers\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\EngineException.h">
-      <Filter>Headers\Misc</Filter>
+      <Filter>Source Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\Graphics.h">
-      <Filter>Headers\Device</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Globals.h">
-      <Filter>Headers\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\RTTI.h">
-      <Filter>Headers\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Timer.h">
-      <Filter>Headers\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\Grid.h">
-      <Filter>Headers\Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\RenderStateHelper.h">
-      <Filter>Headers\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\DrawableGameObject.h">
-      <Filter>Headers\Misc</Filter>
+      <Filter>Source Files\Device</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\GeometryPrimitives.h">
-      <Filter>Headers\Geo</Filter>
+      <Filter>Source Files\Geo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Grid.h">
+      <Filter>Source Files\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\DrawableGameObject.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\EngineException.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\GameObject.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Globals.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RenderStateHelper.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\RTTI.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\Timer.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\AnimatedSprite.h">
+      <Filter>Source Files\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\PhysicsDebugDrawer.h">
+      <Filter>Source Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\inc\Common\SimpleMath.inl">
-      <Filter>Headers\Common</Filter>
+      <Filter>Source Files\Common</Filter>
     </None>
     <None Include="..\bin\Fx\Shader.dgsl">
       <Filter>FX</Filter>

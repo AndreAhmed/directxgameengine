@@ -20,6 +20,7 @@ public:
 
 	DirectX::XMMATRIX  getViewMatrix();
 	DirectX::XMMATRIX  getProjectionMatrix();
+	DirectX::XMMATRIX  getViewProjectionMatrix();
 
 	HRESULT SetWireFrameMode(BOOL enable);
 	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);

@@ -88,10 +88,10 @@ XMMATRIX cCamera::ViewProjectionMatrix()
 	return XMMatrixMultiply(viewMatrix, projectionMatrix);
 }
 
-
-void cCamera::SetPosition(const XMFLOAT3& position)
+void cCamera::SetPosition(FLOAT x, FLOAT y, FLOAT z)
 {
-	m_Position = position;
+	XMVECTOR position = XMVectorSet(x, y, z, 1.0f);
+	XMStoreFloat3(&m_Position, position);
 }
 
 void cCamera::SetPerspective(float fov, float aspect, float nearPlane, float farPlane)
