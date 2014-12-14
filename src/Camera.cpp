@@ -22,7 +22,7 @@ void cCamera::Initialize()
 void cCamera::Reset()
 {
 	// config for left hand camera system
-	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_Position = XMFLOAT3(0.0f, 3.0f, -150.0f);
 	m_Forward = XMFLOAT3(0.0f, 0.0f, 1.0f);
 	m_Up = XMFLOAT3(0.0f, 1.0f, 0.0f);
 	m_Right = XMFLOAT3(1.0f, 0.0f, 0.0f);
@@ -90,7 +90,7 @@ XMMATRIX cCamera::ViewProjectionMatrix()
 
 void cCamera::SetPosition(FLOAT x, FLOAT y, FLOAT z)
 {
-	XMVECTOR position = XMVectorSet(x, y, z, 1.0f);
+	XMVECTOR position = XMVectorSet(x, y, z, 0);
 	XMStoreFloat3(&m_Position, position);
 }
 
@@ -118,35 +118,68 @@ void cCamera::LookAt(const XMVECTOR &target)
 
 void cCamera::UpdateViewMatrix()
 {
-	XMVECTOR eyePosition = XMLoadFloat3(&m_Position);
-	XMVECTOR direction = XMLoadFloat3(&m_Forward);
-	XMVECTOR upDirection = XMLoadFloat3(&m_Up);
+	XMVECTOR R = XMLoadFloat3(&m_Right);
+	XMVECTOR U = XMLoadFloat3(&m_Up);
+	XMVECTOR L = XMLoadFloat3(&m_Forward);
+	XMVECTOR P = XMLoadFloat3(&m_Position);
 
-	XMMATRIX viewMatrix = XMMatrixLookToLH(eyePosition, direction, upDirection);
-	XMStoreFloat4x4(&m_ViewMatrix, viewMatrix);
+	// Keep camera's axes orthogonal to each other and of unit length.
+	L = XMVector3Normalize(L);
+	U = XMVector3Normalize(XMVector3Cross(L, R));
 
+	// U, L already ortho-normal, so no need to normalize cross product.
+	R = XMVector3Cross(U, L);
+
+	// Fill in the view matrix entries.
+	float x = -XMVectorGetX(XMVector3Dot(P, R));
+	float y = -XMVectorGetX(XMVector3Dot(P, U));
+	float z = -XMVectorGetX(XMVector3Dot(P, L));
+
+	XMStoreFloat3(&m_Right, R);
+	XMStoreFloat3(&m_Up, U);
+	XMStoreFloat3(&m_Forward, L);
+
+	m_ViewMatrix(0, 0) = m_Right.x;
+	m_ViewMatrix(1, 0) = m_Right.y;
+	m_ViewMatrix(2, 0) = m_Right.z;
+	m_ViewMatrix(3, 0) = x;
+
+	m_ViewMatrix(0, 1) = m_Up.x;
+	m_ViewMatrix(1, 1) = m_Up.y;
+	m_ViewMatrix(2, 1) = m_Up.z;
+	m_ViewMatrix(3, 1) = y;
+
+	m_ViewMatrix(0, 2) = m_Forward.x;
+	m_ViewMatrix(1, 2) = m_Forward.y;
+	m_ViewMatrix(2, 2) = m_Forward.z;
+	m_ViewMatrix(3, 2) = z;
+
+	m_ViewMatrix(0, 3) = 0.0f;
+	m_ViewMatrix(1, 3) = 0.0f;
+	m_ViewMatrix(2, 3) = 0.0f;
+	m_ViewMatrix(3, 3) = 1.0f;
 }
 
 
 void cCamera::Update(float dt)
 {
 	if (GetAsyncKeyState('W') & 0x8000)
-		Walk(45 * dt);
+		Walk(35 * dt);
 
 	if (GetAsyncKeyState('S') & 0x8000)
-		Walk(-45 * dt);
+		Walk(-35 * dt);
 
 	if (GetAsyncKeyState('A') & 0x8000)
-		Strafe(-45 * dt);
+		Strafe(-35 * dt);
 
 	if (GetAsyncKeyState('D') & 0x8000)
-		Strafe(45 * dt);
+		Strafe(35 * dt);
 
 	if (GetAsyncKeyState('Z') & 0x8000)
-		MoveUp(-45 * dt);
+		MoveUp(-35 * dt);
 
 	if (GetAsyncKeyState('X') & 0x8000)
-		MoveUp(45 * dt);
+		MoveUp(35 * dt);
 
 	UpdateViewMatrix();
 }
