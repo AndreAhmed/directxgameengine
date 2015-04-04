@@ -35,6 +35,7 @@ void BulletDebugDrawer::drawLine(const btVector3& from, const btVector3& to, con
 	basicEffect->Apply(m_pGraphics->getContext());
 	m_pGraphics->getContext()->IASetInputLayout(inputLayout.Get());
 	basicEffect->SetView(m_pGraphics->getViewMatrix());
+	basicEffect->SetProjection(m_pGraphics->getProjectionMatrix());
 	line->Begin();
 	line->DrawLine(VertexPositionColor(XMFLOAT3(from.x(), from.y(), from.z()), XMFLOAT4(lineColor.getX(), lineColor.getY(), lineColor.getZ(), 1)),
 		VertexPositionColor(XMFLOAT3(to.x(), to.y(), to.z()), XMFLOAT4(lineColor.getX(), lineColor.getY(), lineColor.getZ(), 1)));
@@ -64,12 +65,7 @@ BulletDebugDrawer::BulletDebugDrawer(cGraphics *graphics)
 
 	line = std::unique_ptr<PrimitiveBatch<VertexPositionColor>>(new PrimitiveBatch<VertexPositionColor>(m_pGraphics->getContext()));
 	basicEffect = std::unique_ptr<BasicEffect>(new BasicEffect(m_pGraphics->getDevice()));
-	
-	 
-
-	basicEffect->SetProjection( m_pGraphics->getProjectionMatrix());
 	basicEffect->SetVertexColorEnabled(true);
-
 	void const* shaderByteCode;
 	size_t byteCodeLength;
 
