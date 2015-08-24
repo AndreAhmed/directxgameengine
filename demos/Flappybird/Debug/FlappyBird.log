@@ -1,19 +1,28 @@
-﻿Build started 11/22/2014 12:15:52 PM.
+﻿Build started 8/24/2015 10:41:02 PM.
      1>Project "C:\Users\Ahmed Saleh\Desktop\directxgameengine\demos\Flappybird\FlappyBird.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Ahmed Saleh\Desktop\directxgameengine\demos\Flappybird\..\Flappybird\inc" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /I"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\..\inc" /I"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\..\inc\Common" /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR- /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Bird.cpp
-         Bird.cpp
-     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\src\bird.cpp(50): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\src\bird.cpp(75): warning C4244: '=' : conversion from 'float' to 'LONG', possible loss of data
-     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\src\bird.cpp(76): warning C4244: '=' : conversion from 'float' to 'LONG', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Ahmed Saleh\Desktop\directxgameengine\demos\Flappybird\..\Flappybird\inc" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\um" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\shared" /I"C:\Program Files (x86)\Windows Kits\8.1\Include\winrt" /I"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\..\inc" /I"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\..\inc\Common" /ZI /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR- /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt GameApp.cpp
+         GameApp.cpp
+     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\gameapp.cpp(85): warning C4244: '=' : conversion from 'LONG' to 'float', possible loss of data
+     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\gameapp.cpp(86): warning C4244: '=' : conversion from 'LONG' to 'float', possible loss of data
+     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\gameapp.cpp(87): warning C4244: '=' : conversion from 'LONG' to 'float', possible loss of data
+     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\gameapp.cpp(88): warning C4244: '=' : conversion from 'LONG' to 'float', possible loss of data
+     1>c:\users\ahmed saleh\desktop\directxgameengine\demos\flappybird\gameapp.cpp(226): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\FlappyBird.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\..\lib" d3d11.lib d3dcompiler.lib dxguid.lib winmm.lib 2DGameEngine.lib DirectXTKd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\FlappyBird.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\FlappyBird.lib" /MACHINE:X86 Debug\GameApp.obj
          Debug\Main.obj
          Debug\Bird.obj
          Debug\Obstacle.obj
+     1>DirectXTKd.lib(CommonStates.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(CommonStates.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
+     1>DirectXTKd.lib(BinaryReader.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(BinaryReader.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
+     1>DirectXTKd.lib(pch.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(pch.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
+     1>DirectXTKd.lib(SpriteBatch.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(SpriteBatch.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
+     1>DirectXTKd.lib(SpriteFont.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(SpriteFont.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
+     1>DirectXTKd.lib(VertexTypes.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(VertexTypes.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
+     1>DirectXTKd.lib(WICTextureLoader.obj) : warning LNK4099: PDB 'directxtk.pdb' was not found with 'DirectXTKd.lib(WICTextureLoader.obj)' or at 'C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\directxtk.pdb'; linking object as if no debug info
          FlappyBird.vcxproj -> C:\Users\Ahmed Saleh\Desktop\directxgameengine\vc\Debug\FlappyBird.exe
      1>Done Building Project "C:\Users\Ahmed Saleh\Desktop\directxgameengine\demos\Flappybird\FlappyBird.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.59
+Time Elapsed 00:00:05.42

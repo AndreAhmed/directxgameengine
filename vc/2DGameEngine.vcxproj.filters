@@ -32,6 +32,9 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{e9aca407-2788-4dd8-9106-8aa50c890521}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{ed660774-43e1-4ed3-b168-275fe19bdcda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Camera.cpp">
@@ -63,6 +66,18 @@
     </ClCompile>
     <ClCompile Include="..\src\PhysicsDebugDrawer.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Mesh.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Model.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ModelMaterial.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility.cpp">
+      <Filter>Source Files\Misc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +169,18 @@
     </ClInclude>
     <ClInclude Include="..\inc\PhysicsDebugDrawer.h">
       <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Mesh.h">
+      <Filter>Source Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Model.h">
+      <Filter>Source Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ModelMaterial.h">
+      <Filter>Source Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility.h">
+      <Filter>Source Files\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

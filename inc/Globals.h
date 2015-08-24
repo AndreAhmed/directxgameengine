@@ -26,6 +26,7 @@
 // STL
 #include <vector>
 #include <memory>
+#include <map>
 
 #include "EngineException.h"
 #include "RTTI.h"

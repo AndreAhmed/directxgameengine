@@ -99,7 +99,7 @@ void GameApp::Game_Init(HWND handle)
 	m_Graphics.Initialize(handle, true);
 	m_Camera.Initialize();
 	m_Camera.SetPerspective(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
-	m_Camera.SetPosition(XMFLOAT3(-140.0f, 18.0f, -8.0f));
+	m_Camera.SetPosition(-140.0f, 18.0f, -8.0f);
 	m_Camera.RotateY(-30.0f);
 	m_Graphics.SetCamera(&m_Camera);
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);

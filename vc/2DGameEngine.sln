@@ -15,7 +15,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletDynamics", "..\lib\Bu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinearMath", "..\lib\Bullet\build\vs2010\LinearMath.vcxproj", "{58D08522-C69F-904C-A7ED-733DA229F1BA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletPhysicsDemo", "..\demos\BulletPhysics\BulletPhysics.vcxproj", "{6E7D1DCC-5B0D-47B1-9958-2B942AFD3C26}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FPSDemo", "..\demos\BulletPhysics\BulletPhysics.vcxproj", "{6E7D1DCC-5B0D-47B1-9958-2B942AFD3C26}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletPhysicsDemo", "..\demos\FPSDemo\FPSDemo.vcxproj", "{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,12 @@ Global
 		{6E7D1DCC-5B0D-47B1-9958-2B942AFD3C26}.Release|Win32.ActiveCfg = Release|Win32
 		{6E7D1DCC-5B0D-47B1-9958-2B942AFD3C26}.Release|Win32.Build.0 = Release|Win32
 		{6E7D1DCC-5B0D-47B1-9958-2B942AFD3C26}.Release|x64.ActiveCfg = Release|Win32
+		{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}.Debug|Win32.Build.0 = Debug|Win32
+		{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}.Debug|x64.ActiveCfg = Debug|Win32
+		{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}.Release|Win32.ActiveCfg = Release|Win32
+		{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}.Release|Win32.Build.0 = Release|Win32
+		{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

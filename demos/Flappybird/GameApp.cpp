@@ -191,7 +191,7 @@ void GameApp::Game_Init(HWND handle)
 	m_Camera.Initialize();
 	//m_Camera.SetPerspective(0.25f*DirectX::XM_PI, m_Graphics.AspectRatio(), 0.01f, 1000.0f);
 	m_Camera.SetOrthographic(WINDOW_WIDTH, WINDOW_HEIGHT,0.1f, 100.0f);
-	m_Camera.SetPosition(XMFLOAT3(1.0f, 0, 0));
+	m_Camera.SetPosition(1.0f, 0, 0);
 	m_Graphics.SetCamera(&m_Camera);
 	//HRESULT hr = m_Graphics.SetWireFrameMode(TRUE);
 	m_Graphics.CreateSpriteBatch();
