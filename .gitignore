@@ -114,8 +114,11 @@ UpgradeLog*.htm
 ### VisualStudio Patch ###
 build/
 
-# Build outputs
-/lib/2DGameEngine.lib
-
 # Unit test session
 /vc/2DGameEngine.tss
+
+# Build outputs
+/lib/2DGameEngine.lib
+/lib/Bullet/lib/LinearMath_vs2010_debug.lib
+/lib/Bullet/lib/BulletDynamics_vs2010_debug.lib
+/lib/Bullet/lib/BulletCollision_vs2010_debug.lib
