@@ -113,3 +113,9 @@ UpgradeLog*.htm
 
 ### VisualStudio Patch ###
 build/
+
+# Build outputs
+/lib/2DGameEngine.lib
+
+# Unit test session
+/vc/2DGameEngine.tss
