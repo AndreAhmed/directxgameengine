@@ -13,7 +13,7 @@
 
 #pragma once
 
-#if defined(_XBOX_ONE) && defined(_TITLE) && MONOLITHIC
+#if defined(_XBOX_ONE) && defined(_TITLE)
 #include <d3d11_x.h>
 #else
 #include <d3d11_1.h>
@@ -27,12 +27,6 @@
 
 namespace DirectX
 {
-    #if (DIRECTXMATH_VERSION < 305) && !defined(XM_CALLCONV)
-    #define XM_CALLCONV __fastcall
-    typedef const XMVECTOR& HXMVECTOR;
-    typedef const XMMATRIX& FXMMATRIX;
-    #endif
-
     enum SpriteSortMode
     {
         SpriteSortMode_Deferred,
@@ -58,11 +52,16 @@ namespace DirectX
         explicit SpriteBatch(_In_ ID3D11DeviceContext* deviceContext);
         SpriteBatch(SpriteBatch&& moveFrom);
         SpriteBatch& operator= (SpriteBatch&& moveFrom);
+
+        SpriteBatch(SpriteBatch const&) = delete;
+        SpriteBatch& operator= (SpriteBatch const&) = delete;
+
         virtual ~SpriteBatch();
 
         // Begin/End a batch of sprite drawing operations.
-        void XM_CALLCONV Begin(SpriteSortMode sortMode = SpriteSortMode_Deferred, _In_opt_ ID3D11BlendState* blendState = nullptr, _In_opt_ ID3D11SamplerState* samplerState = nullptr, _In_opt_ ID3D11DepthStencilState* depthStencilState = nullptr, _In_opt_ ID3D11RasterizerState* rasterizerState = nullptr, _In_opt_ std::function<void()> setCustomShaders = nullptr, FXMMATRIX transformMatrix = MatrixIdentity);
-        void End();
+        void XM_CALLCONV Begin(SpriteSortMode sortMode = SpriteSortMode_Deferred, _In_opt_ ID3D11BlendState* blendState = nullptr, _In_opt_ ID3D11SamplerState* samplerState = nullptr, _In_opt_ ID3D11DepthStencilState* depthStencilState = nullptr, _In_opt_ ID3D11RasterizerState* rasterizerState = nullptr,
+                               _In_opt_ std::function<void __cdecl()> setCustomShaders = nullptr, FXMMATRIX transformMatrix = MatrixIdentity);
+        void __cdecl End();
 
         // Draw overloads specifying position, origin and scale as XMFLOAT2.
         void XM_CALLCONV Draw(_In_ ID3D11ShaderResourceView* texture, XMFLOAT2 const& position, FXMVECTOR color = Colors::White);
@@ -79,8 +78,11 @@ namespace DirectX
         void XM_CALLCONV Draw(_In_ ID3D11ShaderResourceView* texture, RECT const& destinationRectangle, _In_opt_ RECT const* sourceRectangle, FXMVECTOR color = Colors::White, float rotation = 0, XMFLOAT2 const& origin = Float2Zero, SpriteEffects effects = SpriteEffects_None, float layerDepth = 0);
 
         // Rotation mode to be applied to the sprite transformation
-        void SetRotation( DXGI_MODE_ROTATION mode );
-        DXGI_MODE_ROTATION GetRotation() const;
+        void __cdecl SetRotation( DXGI_MODE_ROTATION mode );
+        DXGI_MODE_ROTATION __cdecl GetRotation() const;
+
+        // Set viewport for sprite transformation
+        void __cdecl SetViewport( const D3D11_VIEWPORT& viewPort );
 
     private:
         // Private implementation.
@@ -90,9 +92,5 @@ namespace DirectX
 
         static const XMMATRIX MatrixIdentity;
         static const XMFLOAT2 Float2Zero;
-
-        // Prevent copying.
-        SpriteBatch(SpriteBatch const&);
-        SpriteBatch& operator= (SpriteBatch const&);
     };
 }

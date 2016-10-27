@@ -13,19 +13,15 @@
 
 #pragma once
 
-#if defined(_XBOX_ONE) && defined(_TITLE) && MONOLITHIC
+#if defined(_XBOX_ONE) && defined(_TITLE)
 #include <d3d11_x.h>
 #else
 #include <d3d11_1.h>
 #endif
 
-#include <memory.h>
 #include <memory>
-
-#pragma warning(push)
-#pragma warning(disable: 4005)
+#include <utility>
 #include <stdint.h>
-#pragma warning(pop)
 
 
 namespace DirectX
@@ -39,26 +35,26 @@ namespace DirectX
             PrimitiveBatchBase(_In_ ID3D11DeviceContext* deviceContext, size_t maxIndices, size_t maxVertices, size_t vertexSize);
             PrimitiveBatchBase(PrimitiveBatchBase&& moveFrom);
             PrimitiveBatchBase& operator= (PrimitiveBatchBase&& moveFrom);
+
+            PrimitiveBatchBase(PrimitiveBatchBase const&) = delete;
+            PrimitiveBatchBase& operator= (PrimitiveBatchBase const&) = delete;
+
             virtual ~PrimitiveBatchBase();
 
         public:
             // Begin/End a batch of primitive drawing operations.
-            void Begin();
-            void End();
+            void __cdecl Begin();
+            void __cdecl End();
 
         protected:
             // Internal, untyped drawing method.
-            void Draw(D3D11_PRIMITIVE_TOPOLOGY topology, bool isIndexed, _In_opt_count_(indexCount) uint16_t const* indices, size_t indexCount, size_t vertexCount, _Out_ void** pMappedVertices);
+            void __cdecl Draw(D3D11_PRIMITIVE_TOPOLOGY topology, bool isIndexed, _In_opt_count_(indexCount) uint16_t const* indices, size_t indexCount, size_t vertexCount, _Out_ void** pMappedVertices);
 
         private:
             // Private implementation.
             class Impl;
 
             std::unique_ptr<Impl> pImpl;
-
-            // Prevent copying.
-            PrimitiveBatchBase(PrimitiveBatchBase const&);
-            PrimitiveBatchBase& operator= (PrimitiveBatchBase const&);
         };
     }
 
@@ -70,7 +66,7 @@ namespace DirectX
         static const size_t DefaultBatchSize = 2048;
 
     public:
-        PrimitiveBatch(_In_ ID3D11DeviceContext* deviceContext, size_t maxIndices = DefaultBatchSize * 3, size_t maxVertices = DefaultBatchSize)
+        explicit PrimitiveBatch(_In_ ID3D11DeviceContext* deviceContext, size_t maxIndices = DefaultBatchSize * 3, size_t maxVertices = DefaultBatchSize)
           : PrimitiveBatchBase(deviceContext, maxIndices, maxVertices, sizeof(TVertex))
         { }
 
