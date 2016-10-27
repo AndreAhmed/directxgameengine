@@ -21,6 +21,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletPhysicsDemo", "..\demos\BulletPhysics\BulletPhysics.vcxproj", "{6E7D1DCC-5B0D-47B1-9958-2B942AFD3C26}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FPSDemo", "..\demos\FPSDemo\FPSDemo.vcxproj", "{2AE8EA38-DD63-4B30-A02C-32D9CD805A6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28D36A0F-B790-D748-BC8C-8FB422E45492} = {28D36A0F-B790-D748-BC8C-8FB422E45492}
+		{58D08522-C69F-904C-A7ED-733DA229F1BA} = {58D08522-C69F-904C-A7ED-733DA229F1BA}
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA} = {54AE91C7-48D4-9C49-A5B1-0CED554CADFA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
